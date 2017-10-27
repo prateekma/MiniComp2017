@@ -40,7 +40,7 @@ public class StraightDrive extends PIDSubsystem
     @Override
     protected void usePIDOutput(double v)
     {
-        Robot.driveTrain.drive(v, v);
+        Robot.driveTrain.drive(0.5, 0.5);
     }
 
     @Override
