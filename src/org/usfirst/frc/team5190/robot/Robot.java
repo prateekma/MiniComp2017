@@ -51,15 +51,10 @@ public class Robot extends IterativeRobot
         if (autonomousCommand != null)
             autonomousCommand.start();
 
-        try
-        {
-            straightDrive = new StraightDrive(P_STRAIGHT, I_STRAIGHT, D_STRAIGHT);
-            balanceDrive = new BalanceDrive(P_BALANCE, I_BALANCE, D_BALANCE);
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
+
+        straightDrive = new StraightDrive(P_STRAIGHT, I_STRAIGHT, D_STRAIGHT);
+        balanceDrive = new BalanceDrive(P_BALANCE, I_BALANCE, D_BALANCE);
+
         straightDrive.enable();
     }
 

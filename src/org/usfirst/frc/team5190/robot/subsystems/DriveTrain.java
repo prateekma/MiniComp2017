@@ -34,7 +34,7 @@ public class DriveTrain extends Subsystem
 		robotDrive.arcadeDrive(Robot.oi.getController().getY(Hand.kLeft), Robot.oi.getController().getX(Hand.kLeft));
 	}
 
-	public void drive(double left, double right)
+	void drive(double left, double right)
 	{
 		robotDrive.setLeftRightMotorOutputs(left, right);
 	}

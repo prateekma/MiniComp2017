@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import org.usfirst.frc.team5190.robot.Robot;
 
 import static org.usfirst.frc.team5190.robot.RobotMap.gyro;
+import static org.usfirst.frc.team5190.robot.RobotMap.straightDriveFinished;
 
 public class StraightDrive extends PIDSubsystem
 {
@@ -22,6 +23,7 @@ public class StraightDrive extends PIDSubsystem
     @Override
     public void disable()
     {
+        straightDriveFinished = true;
         Robot.balanceDrive.enable();
         super.disable();
     }
@@ -38,11 +40,6 @@ public class StraightDrive extends PIDSubsystem
             return 0;
 
         return pitch;
-    }
-
-    public boolean isEnabled()
-    {
-        return this.isEnabled();
     }
 
     @Override

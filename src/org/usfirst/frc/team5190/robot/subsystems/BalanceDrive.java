@@ -8,13 +8,9 @@ import static org.usfirst.frc.team5190.robot.RobotMap.gyro;
 
 public class BalanceDrive extends PIDSubsystem
 {
-    public BalanceDrive(double p, double i, double d) throws Exception
+    public BalanceDrive(double p, double i, double d)
     {
         super("Balance Drive", p, i, d);
-
-        // For debugging purposes.
-        if (Robot.straightDrive.isEnabled())
-            throw new Exception("Straight Drive is still enabled. Balance drive cannot run.");
 
         this.setSetpoint(0);
         this.setAbsoluteTolerance(0.05);
