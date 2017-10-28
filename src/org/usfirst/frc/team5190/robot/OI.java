@@ -10,15 +10,4 @@ public class OI
     {
         return controller;
     }
-
-    public boolean getAButton()
-
-    {
-        return controller.getAButton();
-    }
-
-    public boolean getXButton()
-    {
-        return controller.getXButton();
-    }
 }
