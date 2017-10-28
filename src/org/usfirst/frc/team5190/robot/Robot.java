@@ -49,14 +49,7 @@ public class Robot extends IterativeRobot
         if (autonomousCommand != null)
             autonomousCommand.start();
 
-        if (!RobotMap.straightDriveFinished)
-        {
-            straightDrive.enable();
-        }
-        else
-        {
-            balanceDrive.enable();
-        }
+        straightDrive.enable();
     }
 
     @Override

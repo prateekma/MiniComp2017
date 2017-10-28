@@ -4,7 +4,6 @@ import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import org.usfirst.frc.team5190.robot.Robot;
 
 import static org.usfirst.frc.team5190.robot.RobotMap.gyro;
-import static org.usfirst.frc.team5190.robot.RobotMap.straightDriveFinished;
 
 public class StraightDrive extends PIDSubsystem
 {
@@ -15,6 +14,7 @@ public class StraightDrive extends PIDSubsystem
         gyro.reset();
 
         this.setSetpoint(5.0);
+        this.setInputRange(0, 7);
         this.setPercentTolerance(10);
         this.setOutputRange(-1, 1);
     }
@@ -22,7 +22,7 @@ public class StraightDrive extends PIDSubsystem
     @Override
     public void disable()
     {
-        straightDriveFinished = true;
+        Robot.balanceDrive.enable();
         super.disable();
     }
 
@@ -30,6 +30,9 @@ public class StraightDrive extends PIDSubsystem
     protected double returnPIDInput()
     {
         double pitch = gyro.getPitch();
+
+        if (pitch > 4.5 && pitch < 5.5)
+            this.disable();
 
         if (pitch < 0)
             return 0;
@@ -40,7 +43,7 @@ public class StraightDrive extends PIDSubsystem
     @Override
     protected void usePIDOutput(double v)
     {
-        Robot.driveTrain.drive(0.5, 0.5);
+        Robot.driveTrain.drive(v, v);
     }
 
     @Override

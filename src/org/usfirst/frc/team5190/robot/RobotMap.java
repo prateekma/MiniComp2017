@@ -2,7 +2,6 @@ package org.usfirst.frc.team5190.robot;
 
 import com.ctre.CANTalon;
 import com.kauailabs.navx.frc.AHRS;
-import edu.wpi.first.wpilibj.I2C;
 
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
@@ -23,7 +22,4 @@ public class RobotMap
     public static CANTalon frontRight = new CANTalon(FRONT_RIGHT);
     public static CANTalon rearLeft = new CANTalon(REAR_LEFT);
     public static CANTalon rearRight = new CANTalon(REAR_RIGHT);
-
-    public static boolean straightDriveFinished = false;
-
 }
