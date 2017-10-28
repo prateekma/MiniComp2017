@@ -40,6 +40,11 @@ public class StraightDrive extends PIDSubsystem
         return pitch;
     }
 
+    public boolean isEnabled()
+    {
+        return this.isEnabled();
+    }
+
     @Override
     protected void usePIDOutput(double v)
     {
