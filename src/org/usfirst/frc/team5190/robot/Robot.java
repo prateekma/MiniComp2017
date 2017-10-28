@@ -12,6 +12,8 @@ import org.usfirst.frc.team5190.robot.subsystems.BalanceDrive;
 import org.usfirst.frc.team5190.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team5190.robot.subsystems.StraightDrive;
 
+import static org.usfirst.frc.team5190.robot.RobotMap.*;
+
 public class Robot extends IterativeRobot
 {
     public static DriveTrain driveTrain = new DriveTrain();
@@ -51,8 +53,8 @@ public class Robot extends IterativeRobot
 
         try
         {
-            straightDrive = new StraightDrive(0.01, 0.01, 0.05);
-            balanceDrive = new BalanceDrive(0.01, 0.01, 0.05);
+            straightDrive = new StraightDrive(P_STRAIGHT, I_STRAIGHT, D_STRAIGHT);
+            balanceDrive = new BalanceDrive(P_BALANCE, I_BALANCE, D_BALANCE);
         }
         catch (Exception e)
         {

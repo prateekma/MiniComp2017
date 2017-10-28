@@ -16,6 +16,14 @@ public class RobotMap
     public static final int REAR_LEFT = 2;
     public static final int REAR_RIGHT = 3;
 
+    public static final double P_STRAIGHT = 0.01;
+    public static final double I_STRAIGHT = 0.01;
+    public static final double D_STRAIGHT = 0.03;
+
+    public static final double P_BALANCE = 0.01;
+    public static final double I_BALANCE = 0.01;
+    public static final double D_BALANCE = 0.03;
+
     public static AHRS gyro;
 
     public static CANTalon frontLeft = new CANTalon(FRONT_LEFT);
