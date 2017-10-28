@@ -19,19 +19,6 @@ public class Robot extends IterativeRobot
     public static StraightDrive straightDrive;
     public static BalanceDrive balanceDrive;
 
-    static
-    {
-        try
-        {
-            straightDrive = new StraightDrive(0.01, 0.01, 0.05);
-            balanceDrive = new BalanceDrive(0.01, 0.01, 0.05);
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-    }
-
     private Command autonomousCommand;
     private SendableChooser<Command> chooser = new SendableChooser<>();
 
@@ -62,6 +49,15 @@ public class Robot extends IterativeRobot
         if (autonomousCommand != null)
             autonomousCommand.start();
 
+        try
+        {
+            straightDrive = new StraightDrive(0.01, 0.01, 0.05);
+            balanceDrive = new BalanceDrive(0.01, 0.01, 0.05);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
         straightDrive.enable();
     }
 
