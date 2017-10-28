@@ -16,8 +16,21 @@ public class Robot extends IterativeRobot
 {
     public static DriveTrain driveTrain = new DriveTrain();
     public static OI oi;
-    public static StraightDrive straightDrive = new StraightDrive(0.01, 0.01, 0.05);
-    public static BalanceDrive balanceDrive = new BalanceDrive(0.01, 0.01, 0.05);
+    public static StraightDrive straightDrive;
+    public static BalanceDrive balanceDrive;
+
+    static
+    {
+        try
+        {
+            straightDrive = new StraightDrive(0.01, 0.01, 0.05);
+            balanceDrive = new BalanceDrive(0.01, 0.01, 0.05);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
 
     private Command autonomousCommand;
     private SendableChooser<Command> chooser = new SendableChooser<>();
