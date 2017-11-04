@@ -2,7 +2,6 @@ package org.usfirst.frc.team5190.robot.subsystems;
 
 import com.ctre.CANTalon.TalonControlMode;
 import com.kauailabs.navx.frc.AHRS;
-import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -31,7 +30,7 @@ public class DriveTrain extends Subsystem
 
 	public void drive()
 	{
-		robotDrive.arcadeDrive(Robot.oi.getController().getY(Hand.kLeft), Robot.oi.getController().getX(Hand.kLeft));
+		robotDrive.arcadeDrive(Robot.oi.getJoystick());
 	}
 
 	void drive(double left, double right)

@@ -16,13 +16,16 @@ public class RobotMap
     private static final int REAR_LEFT = 2;
     private static final int REAR_RIGHT = 3;
 
-    static final double P_STRAIGHT = 0.01;
-    static final double I_STRAIGHT = 0.01;
-    static final double D_STRAIGHT = 0.03;
+    public static final double P_STRAIGHT = 0.01;
+    public static final double I_STRAIGHT = 0.01;
+    public static final double D_STRAIGHT = 0.03;
 
-    static final double P_BALANCE = 0.01;
-    static final double I_BALANCE = 0.01;
-    static final double D_BALANCE = 0.03;
+    public static final double P_BALANCE = 0.01;
+    public static final double I_BALANCE = 0.01;
+    public static final double D_BALANCE = 0.03;
+
+    public static final double MAX_POWER = 0.15;
+    public static final double MAX_PITCH = 9;
 
     public static boolean straightDriveFinished = false;
 

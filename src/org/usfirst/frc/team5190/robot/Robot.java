@@ -8,26 +8,33 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import org.usfirst.frc.team5190.robot.subsystems.BalanceDrive;
+import org.usfirst.frc.team5190.robot.commands.StartTeeterTotter;
+import org.usfirst.frc.team5190.robot.commands.StopTeeterTotter;
 import org.usfirst.frc.team5190.robot.subsystems.DriveTrain;
-import org.usfirst.frc.team5190.robot.subsystems.StraightDrive;
-
-import static org.usfirst.frc.team5190.robot.RobotMap.*;
+import org.usfirst.frc.team5190.robot.subsystems.TeeterTotter;
 
 public class Robot extends IterativeRobot
 {
-    public static DriveTrain driveTrain = new DriveTrain();
+    public static DriveTrain driveTrain;
     public static OI oi;
-    public static StraightDrive straightDrive;
-    public static BalanceDrive balanceDrive;
+    public static TeeterTotter teeterTotter;
 
-    private Command autonomousCommand;
+    private StartTeeterTotter start;
+    private StopTeeterTotter stop;
+
+
     private SendableChooser<Command> chooser = new SendableChooser<>();
 
     @Override
     public void robotInit()
     {
         oi = new OI();
+        driveTrain = new DriveTrain();
+        teeterTotter = new TeeterTotter();
+
+        start = new StartTeeterTotter();
+        stop = new StopTeeterTotter();
+
         SmartDashboard.putData("Auto mode", chooser);
     }
 
@@ -46,16 +53,8 @@ public class Robot extends IterativeRobot
     @Override
     public void autonomousInit()
     {
-        autonomousCommand = chooser.getSelected();
-
-        if (autonomousCommand != null)
-            autonomousCommand.start();
-
-
-        straightDrive = new StraightDrive(P_STRAIGHT, I_STRAIGHT, D_STRAIGHT);
-        balanceDrive = new BalanceDrive(P_BALANCE, I_BALANCE, D_BALANCE);
-
-        straightDrive.enable();
+        System.out.println("Autonomous Mode Enabled. Entering Straight Drive.");
+        start.initialize();
     }
 
     @Override
@@ -67,8 +66,7 @@ public class Robot extends IterativeRobot
     @Override
     public void teleopInit()
     {
-        if (autonomousCommand != null)
-            autonomousCommand.cancel();
+        stop.initialize();
     }
 
     @Override
