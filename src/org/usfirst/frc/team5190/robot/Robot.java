@@ -55,7 +55,7 @@ public class Robot extends IterativeRobot
     public void autonomousInit()
     {
         System.out.println("Autonomous Mode Enabled. Entering Straight Drive.");
-        start.initialize();
+        start.start();
     }
 
     @Override
@@ -67,7 +67,7 @@ public class Robot extends IterativeRobot
     @Override
     public void teleopInit()
     {
-        stop.initialize();
+        stop.start();
     }
 
     @Override
