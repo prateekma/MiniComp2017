@@ -97,7 +97,7 @@ public class TeeterTotter extends PIDSubsystem
 
         // debugging purposes
         System.out.println(returnPIDInput() + "------------->" + pidOut);
-        Robot.driveTrain.drive(pidOut, 0);
+        Robot.driveTrain.robotDrive.drive(pidOut, 0);
 
         // switch to balance drive when necessary
         if (current == Stage.STRAIGHT_DRIVE && Math.abs(setPoint - gyro.getPitch()) < tolerance)

@@ -11,11 +11,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team5190.robot.commands.StartTeeterTotter;
 import org.usfirst.frc.team5190.robot.commands.StopTeeterTotter;
 import org.usfirst.frc.team5190.robot.subsystems.DriveTrain;
+import org.usfirst.frc.team5190.robot.subsystems.JaguarDriveTrain;
 import org.usfirst.frc.team5190.robot.subsystems.TeeterTotter;
 
 public class Robot extends IterativeRobot
 {
-    public static DriveTrain driveTrain;
+    public static JaguarDriveTrain driveTrain;
     public static OI oi;
     public static TeeterTotter teeterTotter;
 
@@ -29,7 +30,7 @@ public class Robot extends IterativeRobot
     public void robotInit()
     {
         oi = new OI();
-        driveTrain = new DriveTrain();
+        driveTrain = new JaguarDriveTrain();
         teeterTotter = new TeeterTotter();
 
         start = new StartTeeterTotter();

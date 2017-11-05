@@ -11,7 +11,7 @@ import static org.usfirst.frc.team5190.robot.RobotMap.*;
 
 public class DriveTrain extends Subsystem
 {
-	private RobotDrive robotDrive;
+	RobotDrive robotDrive;
 
 	public DriveTrain()
 	{
@@ -31,11 +31,6 @@ public class DriveTrain extends Subsystem
 	public void drive()
 	{
 		robotDrive.arcadeDrive(Robot.oi.getJoystick());
-	}
-
-	void drive(double left, double right)
-	{
-		robotDrive.setLeftRightMotorOutputs(left, right);
 	}
 
 	@Override

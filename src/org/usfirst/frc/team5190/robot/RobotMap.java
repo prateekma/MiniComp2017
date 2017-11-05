@@ -2,6 +2,7 @@ package org.usfirst.frc.team5190.robot;
 
 import com.ctre.CANTalon;
 import com.kauailabs.navx.frc.AHRS;
+import edu.wpi.first.wpilibj.Jaguar;
 
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
@@ -27,9 +28,12 @@ public class RobotMap
     public static final double MAX_POWER = 0.15;
     public static final double MAX_PITCH = 9;
 
-    public static boolean straightDriveFinished = false;
-
     public static AHRS gyro;
+
+    public static Jaguar jFrontLeft = new Jaguar(FRONT_LEFT);
+    public static Jaguar jFrontRight = new Jaguar(FRONT_RIGHT);
+    public static Jaguar jRearLeft = new Jaguar(REAR_LEFT);
+    public static Jaguar jRearRight = new Jaguar(REAR_RIGHT);
 
     public static CANTalon frontLeft = new CANTalon(FRONT_LEFT);
     public static CANTalon frontRight = new CANTalon(FRONT_RIGHT);
