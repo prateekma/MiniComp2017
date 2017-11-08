@@ -1,7 +1,6 @@
 package org.usfirst.frc.team5190.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import org.usfirst.frc.team5190.robot.commands.StartTeeterTotter;
 import org.usfirst.frc.team5190.robot.commands.StopTeeterTotter;

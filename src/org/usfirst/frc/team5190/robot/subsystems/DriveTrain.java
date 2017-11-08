@@ -11,9 +11,9 @@ import static org.usfirst.frc.team5190.robot.RobotMap.*;
 
 public class DriveTrain extends Subsystem
 {
-	RobotDrive robotDrive;
+	private RobotDrive robotDrive;
 
-	public DriveTrain()
+	DriveTrain()
 	{
 		frontLeft.changeControlMode(TalonControlMode.PercentVbus);
 		rearLeft.changeControlMode(TalonControlMode.Follower);
@@ -36,6 +36,6 @@ public class DriveTrain extends Subsystem
 	@Override
 	public void initDefaultCommand()
 	{
-		this.drive();
+
 	}
 }

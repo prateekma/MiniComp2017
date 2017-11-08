@@ -1,18 +1,12 @@
 package org.usfirst.frc.team5190.robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
-import org.omg.CORBA.PERSIST_STORE;
 import org.usfirst.frc.team5190.robot.Robot;
 
 import static org.usfirst.frc.team5190.robot.RobotMap.*;
 
-/**
- * Class for autonomous teeter totter balance.
- */
 public class TeeterTotter extends PIDSubsystem
 {
-    // Variables to use for two stages of the PID loop.
-    private double pidOut;
     private double setPoint;
     private double horizontalPitch;
     private double tolerance;
@@ -90,6 +84,7 @@ public class TeeterTotter extends PIDSubsystem
     @Override
     protected void usePIDOutput(double v)
     {
+        double pidOut;
         if (current == Stage.STRAIGHT_DRIVE)
             pidOut = -v;
         else

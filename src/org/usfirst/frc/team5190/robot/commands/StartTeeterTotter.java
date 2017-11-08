@@ -4,11 +4,6 @@ import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc.team5190.robot.Robot;
 import org.usfirst.frc.team5190.robot.subsystems.TeeterTotter;
 
-/**
- * Green Hope Falcons
- * FRC Team 5190
- * Programming Team
- */
 public class StartTeeterTotter extends Command
 {
     public StartTeeterTotter()
@@ -21,6 +16,7 @@ public class StartTeeterTotter extends Command
     @Override
     public void initialize()
     {
+        System.out.println("Teeter Totter balance has begun.");
         Robot.teeterTotter.initialize(TeeterTotter.Stage.STRAIGHT_DRIVE);
     }
 
@@ -28,14 +24,14 @@ public class StartTeeterTotter extends Command
     protected void end()
     {
         Robot.teeterTotter.end();
-        System.out.println("Ending Teeter Totter Balance");
+        System.out.println("Teeter Totter balance has ended.");
     }
 
     @Override
     protected void interrupted()
     {
         Robot.teeterTotter.end();
-        System.out.println("Cancelling Teeter Totter Balance");
+        System.out.println("Teeter Totter balance has ended.");
     }
 
     @Override
