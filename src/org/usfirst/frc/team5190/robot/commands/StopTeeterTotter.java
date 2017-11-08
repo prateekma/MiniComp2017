@@ -15,7 +15,6 @@ public class StopTeeterTotter extends Command
     @Override
     public void initialize()
     {
-        System.out.println("Teeter Totter balance has ended.");
         Robot.teeterTotter.end();
     }
 
