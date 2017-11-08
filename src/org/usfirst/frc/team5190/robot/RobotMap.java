@@ -3,6 +3,7 @@ package org.usfirst.frc.team5190.robot;
 import com.ctre.CANTalon;
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.Jaguar;
+import org.usfirst.frc.team5190.robot.subsystems.TeeterTotter;
 
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into

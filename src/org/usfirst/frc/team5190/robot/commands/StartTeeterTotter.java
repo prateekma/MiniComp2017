@@ -4,8 +4,6 @@ import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc.team5190.robot.Robot;
 import org.usfirst.frc.team5190.robot.subsystems.TeeterTotter;
 
-import javax.smartcardio.CommandAPDU;
-
 /**
  * Green Hope Falcons
  * FRC Team 5190
