@@ -6,15 +6,16 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import org.usfirst.frc.team5190.robot.commands.StartTeeterTotter;
 import org.usfirst.frc.team5190.robot.commands.StopTeeterTotter;
+import org.usfirst.frc.team5190.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team5190.robot.subsystems.JaguarDriveTrain;
 import org.usfirst.frc.team5190.robot.subsystems.TeeterTotter;
 
 public class Robot extends IterativeRobot
 {
     // Declare subsystems
-    public static JaguarDriveTrain driveTrain;
+    public static DriveTrain driveTrain = new DriveTrain();
     public static OI oi;
-    public static TeeterTotter teeterTotter;
+    public static TeeterTotter teeterTotter = new TeeterTotter();
 
     // Declare commands
     private StartTeeterTotter start;
@@ -25,9 +26,7 @@ public class Robot extends IterativeRobot
     {
         // Initialize subsystems
         oi = new OI();
-        driveTrain = new JaguarDriveTrain();
-        teeterTotter = new TeeterTotter();
-
+        
         // Initialize commands
         start = new StartTeeterTotter();
         stop = new StopTeeterTotter();
@@ -69,7 +68,6 @@ public class Robot extends IterativeRobot
     public void teleopPeriodic()
     {
         Scheduler.getInstance().run();
-        driveTrain.drive();
     }
 
     @Override

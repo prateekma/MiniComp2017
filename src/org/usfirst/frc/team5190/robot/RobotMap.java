@@ -8,9 +8,9 @@ public class RobotMap
 {
     // Motor constants
     private static final int FRONT_LEFT = 0;
-    private static final int FRONT_RIGHT = 1;
-    private static final int REAR_LEFT = 2;
-    private static final int REAR_RIGHT = 3;
+    private static final int FRONT_RIGHT = 14;
+    private static final int REAR_LEFT = 1;
+    private static final int REAR_RIGHT = 15;
 
     // Straight drive PID constants
     public static final double P_STRAIGHT = 0.01;
@@ -18,7 +18,7 @@ public class RobotMap
     public static final double D_STRAIGHT = 0.03;
 
     // Balance drive PID constants
-    public static final double P_BALANCE = 0.01;
+    public static final double P_BALANCE = 0.04;
     public static final double I_BALANCE = 0.01;
     public static final double D_BALANCE = 0.03;
 

@@ -33,6 +33,7 @@ public class TeeterTotter extends PIDSubsystem
         if (stage == Stage.STRAIGHT_DRIVE)
         {
             gyro.reset();
+            System.out.println("Gyro reset");
 
             this.horizontalPitch = gyro.getPitch();
             this.setPoint = MAX_PITCH - 1;
@@ -42,7 +43,7 @@ public class TeeterTotter extends PIDSubsystem
             this.getPIDController().setSetpoint(setPoint);
 
             this.setAbsoluteTolerance(tolerance);
-            this.setOutputRange(-.7, .7);
+            this.setOutputRange(-.3, .3);
 
             this.enable();
         }
