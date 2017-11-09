@@ -2,22 +2,23 @@ package org.usfirst.frc.team5190.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc.team5190.robot.Robot;
-import org.usfirst.frc.team5190.robot.subsystems.TeeterTotter;
+import org.usfirst.frc.team5190.robot.subsystems.ATTSubsystem;
 
-public class StartTeeterTotter extends Command
+public class STTCommand extends Command
 {
-    public StartTeeterTotter()
+    public STTCommand()
     {
-        super("StartTeeterTotter");
-        requires(Robot.driveTrain);
-        requires(Robot.teeterTotter);
+        super("STTCommand");
+
+        this.requires(Robot.driveTrain);
+        this.requires(Robot.teeterTotter);
     }
 
     @Override
     public void initialize()
     {
         System.out.println("Teeter Totter balance has begun.");
-        Robot.teeterTotter.initialize(TeeterTotter.Stage.STRAIGHT_DRIVE);
+        Robot.teeterTotter.initialize(ATTSubsystem.Stage.STRAIGHT_DRIVE);
     }
 
     @Override

@@ -2,8 +2,8 @@ package org.usfirst.frc.team5190.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import org.usfirst.frc.team5190.robot.commands.StartTeeterTotter;
-import org.usfirst.frc.team5190.robot.commands.StopTeeterTotter;
+import org.usfirst.frc.team5190.robot.commands.ETTCommand;
+import org.usfirst.frc.team5190.robot.commands.STTCommand;
 
 public class OI
 {
@@ -15,8 +15,8 @@ public class OI
         JoystickButton b5 = new JoystickButton(joy, 6);
         JoystickButton b6 = new JoystickButton(joy, 7);
 
-        b5.whenPressed(new StartTeeterTotter());
-        b6.whenPressed(new StopTeeterTotter());
+        b5.whenPressed(new STTCommand());
+        b6.whenPressed(new ETTCommand());
     }
 
     // Getter Method

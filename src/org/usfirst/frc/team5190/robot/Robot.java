@@ -1,41 +1,32 @@
-
 package org.usfirst.frc.team5190.robot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-import org.usfirst.frc.team5190.robot.commands.StartTeeterTotter;
-import org.usfirst.frc.team5190.robot.commands.StopTeeterTotter;
-import org.usfirst.frc.team5190.robot.subsystems.DriveTrain;
-import org.usfirst.frc.team5190.robot.subsystems.JaguarDriveTrain;
-import org.usfirst.frc.team5190.robot.subsystems.TeeterTotter;
+import org.usfirst.frc.team5190.robot.commands.STTCommand;
+import org.usfirst.frc.team5190.robot.commands.ETTCommand;
+import org.usfirst.frc.team5190.robot.subsystems.DTSubsystem;
+import org.usfirst.frc.team5190.robot.subsystems.ATTSubsystem;
 
 public class Robot extends IterativeRobot
 {
-    // Declare subsystems
-    public static DriveTrain driveTrain = new DriveTrain();
+    public static DTSubsystem driveTrain = new DTSubsystem();
+    public static ATTSubsystem teeterTotter = new ATTSubsystem();
     public static OI oi;
-    public static TeeterTotter teeterTotter = new TeeterTotter();
 
-    // Declare commands
-    private StartTeeterTotter start;
-    private StopTeeterTotter stop;
+    private STTCommand sttCommand = new STTCommand();
+    private ETTCommand ettCommand = new ETTCommand();
 
     @Override
     public void robotInit()
     {
-        // Initialize subsystems
-        oi = new OI();
-        
-        // Initialize commands
-        start = new StartTeeterTotter();
-        stop = new StopTeeterTotter();
+
     }
 
     @Override
     public void disabledInit()
     {
-
+        ettCommand.start();
     }
 
     @Override
@@ -48,7 +39,7 @@ public class Robot extends IterativeRobot
     public void autonomousInit()
     {
         System.out.println("Autonomous Mode Enabled.");
-        start.start();
+        sttCommand.start();
     }
 
     @Override
@@ -60,8 +51,8 @@ public class Robot extends IterativeRobot
     @Override
     public void teleopInit()
     {
-        stop.start();
-        System.out.println("Teleoperated Mode Enabled.");
+        ettCommand.start();
+        System.out.println("Manual Operated Mode Enabled.");
     }
 
     @Override

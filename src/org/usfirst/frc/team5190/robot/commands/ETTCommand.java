@@ -3,13 +3,14 @@ package org.usfirst.frc.team5190.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc.team5190.robot.Robot;
 
-public class StopTeeterTotter extends Command
+public class ETTCommand extends Command
 {
-    public StopTeeterTotter()
+    public ETTCommand()
     {
-        super("StopTeeterTotter");
-        requires(Robot.driveTrain);
-        requires(Robot.teeterTotter);
+        super("ETTCommand");
+
+        this.requires(Robot.driveTrain);
+        this.requires(Robot.teeterTotter);
     }
 
     @Override

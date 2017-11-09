@@ -5,7 +5,7 @@ import org.usfirst.frc.team5190.robot.Robot;
 
 import static org.usfirst.frc.team5190.robot.RobotMap.*;
 
-public class TeeterTotter extends PIDSubsystem
+public class ATTSubsystem extends PIDSubsystem
 {
     private double setPoint;
     private double horizontalPitch;
@@ -19,7 +19,7 @@ public class TeeterTotter extends PIDSubsystem
     private Stage current = Stage.STRAIGHT_DRIVE;
 
     // Constructor
-    public TeeterTotter()
+    public ATTSubsystem()
     {
         super("Teeter Totter", P_STRAIGHT, I_STRAIGHT, D_STRAIGHT);
     }

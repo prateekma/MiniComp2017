@@ -6,17 +6,25 @@ import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import org.usfirst.frc.team5190.robot.Robot;
-import org.usfirst.frc.team5190.robot.commands.TeleDriveWithJoystick;
+import org.usfirst.frc.team5190.robot.commands.JOYCommand;
 
 import static org.usfirst.frc.team5190.robot.RobotMap.*;
 
-public class DriveTrain extends Subsystem
+public class DTSubsystem extends Subsystem
 {
 	RobotDrive robotDrive;
 
-	public DriveTrain()
+	public DTSubsystem()
 	{
-		robotDrive = new RobotDrive(frontLeft, rearLeft, frontRight, rearRight);
+		frontLeft.changeControlMode(TalonControlMode.PercentVbus);
+		rearLeft .changeControlMode(TalonControlMode.Follower);
+		rearLeft .set(frontLeft.getDeviceID());
+
+		frontRight.changeControlMode(TalonControlMode.PercentVbus);
+		rearRight .changeControlMode(TalonControlMode.Follower);
+		rearRight .set(frontRight.getDeviceID());
+
+		robotDrive = new RobotDrive(frontLeft, frontRight);
 
 		gyro = new AHRS(I2C.Port.kMXP);
 	}
@@ -29,7 +37,7 @@ public class DriveTrain extends Subsystem
 	@Override
 	public void initDefaultCommand()
 	{
-		setDefaultCommand(new TeleDriveWithJoystick());
+		this.setDefaultCommand(new JOYCommand());
 	}
 	
 	public void end()
