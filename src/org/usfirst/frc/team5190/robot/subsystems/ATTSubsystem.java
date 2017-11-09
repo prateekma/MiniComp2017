@@ -11,7 +11,6 @@ public class ATTSubsystem extends PIDSubsystem
     private double horizontalPitch;
     private double tolerance;
 
-    // Stores the current stage of the PID loop.
     public enum Stage
     {
         STRAIGHT_DRIVE, BALANCE_DRIVE
@@ -77,11 +76,9 @@ public class ATTSubsystem extends PIDSubsystem
         else
             pidOut = v;
 
-        // debugging purposes
         System.out.println(returnPIDInput() + "------------->" + pidOut);
         Robot.driveTrain.robotDrive.drive(pidOut, 0);
 
-        // switch to balance drive when necessary
         if (current == Stage.STRAIGHT_DRIVE && Math.abs(setPoint - gyro.getPitch()) < tolerance)
         {
             System.out.println("Entering Balance Drive");
