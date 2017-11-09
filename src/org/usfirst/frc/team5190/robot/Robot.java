@@ -3,10 +3,10 @@ package org.usfirst.frc.team5190.robot;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-import org.usfirst.frc.team5190.robot.commands.STTCommand;
 import org.usfirst.frc.team5190.robot.commands.ETTCommand;
-import org.usfirst.frc.team5190.robot.subsystems.DTSubsystem;
+import org.usfirst.frc.team5190.robot.commands.STTCommand;
 import org.usfirst.frc.team5190.robot.subsystems.ATTSubsystem;
+import org.usfirst.frc.team5190.robot.subsystems.DTSubsystem;
 
 public class Robot extends IterativeRobot
 {
@@ -20,12 +20,13 @@ public class Robot extends IterativeRobot
     @Override
     public void robotInit()
     {
-
+        System.out.println("Robot Init.");
     }
 
     @Override
     public void disabledInit()
     {
+        System.out.println("Disabled Init.");
         ettCommand.start();
     }
 
@@ -38,7 +39,7 @@ public class Robot extends IterativeRobot
     @Override
     public void autonomousInit()
     {
-        System.out.println("Autonomous Mode Enabled.");
+        System.out.println("Autonomous Init.");
         sttCommand.start();
     }
 
@@ -51,8 +52,8 @@ public class Robot extends IterativeRobot
     @Override
     public void teleopInit()
     {
+        System.out.println("Manual Init.");
         ettCommand.start();
-        System.out.println("Manual Operated Mode Enabled.");
     }
 
     @Override

@@ -25,6 +25,7 @@ public class RobotMap
     // Other important PID constants
     public static final double MAX_POWER = 0.15;
     public static final double MAX_PITCH = 9;
+    public static final double MIN_PITCH = 7;
 
     // Gyroscope
     public static AHRS gyro;

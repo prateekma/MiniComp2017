@@ -16,7 +16,7 @@ public class ETTCommand extends Command
     @Override
     public void initialize()
     {
-        Robot.teeterTotter.end();
+        Robot.teeterTotter.stop();
     }
 
     @Override

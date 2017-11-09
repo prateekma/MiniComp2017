@@ -13,5 +13,6 @@
 	</lib>
 	<levels>
 		<level name="FRC Libraries" value="project"/>
+		<level name="cscore" value="project"/>
 	</levels>
 </component>

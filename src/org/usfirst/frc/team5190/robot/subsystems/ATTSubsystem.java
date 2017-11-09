@@ -16,58 +16,43 @@ public class ATTSubsystem extends PIDSubsystem
     {
         STRAIGHT_DRIVE, BALANCE_DRIVE
     }
+
     private Stage current = Stage.STRAIGHT_DRIVE;
 
-    // Constructor
     public ATTSubsystem()
     {
         super("Teeter Totter", P_STRAIGHT, I_STRAIGHT, D_STRAIGHT);
+        this.reset();
     }
 
-    // Initialize the PID loop depending on the stage
-    public void initialize(Stage stage)
+    public void reset()
     {
-        current = stage;
+        gyro.reset();
+        horizontalPitch = gyro.getPitch();
 
-        // straight drive
-        if (stage == Stage.STRAIGHT_DRIVE)
-        {
-            gyro.reset();
-            System.out.println("Gyro reset");
+        current = Stage.STRAIGHT_DRIVE;
+        setPoint = MIN_PITCH + horizontalPitch;
+        tolerance = 0.5;
 
-            this.horizontalPitch = gyro.getPitch();
-            this.setPoint = MAX_PITCH - 1;
-            this.tolerance = 0.5;
+        if (this.getPIDController().isEnabled())
+            disable();
 
-            this.getPIDController().setPID(P_STRAIGHT, I_STRAIGHT, D_STRAIGHT);
-            this.getPIDController().setSetpoint(setPoint);
+        this.getPIDController().setPID(P_STRAIGHT, I_STRAIGHT, D_STRAIGHT);
+        this.getPIDController().setSetpoint(setPoint);
 
-            this.setAbsoluteTolerance(tolerance);
-            this.setOutputRange(-.3, .3);
-
-            this.enable();
-        }
-        // balance drive
-        else
-        {
-            this.setPoint = horizontalPitch;
-            this.tolerance = 0.1;
-
-            this.getPIDController().reset();
-            this.getPIDController().setPID(P_BALANCE, I_BALANCE, D_BALANCE);
-            this.getPIDController().setSetpoint(setPoint);
-
-            this.setAbsoluteTolerance(tolerance);
-            this.setOutputRange(-MAX_POWER, MAX_POWER);
-
-            this.enable();
-        }
-
+        this.setAbsoluteTolerance(tolerance);
+        this.setOutputRange(-.5, .5);
     }
 
-    // End the PID loop.
-    public void end()
+    public void start()
     {
+        System.out.println("ATT Subsystem Enabled.");
+        this.enable();
+    }
+
+    public void stop()
+    {
+        System.out.println("ATT Subsystem Disabled.");
         this.disable();
     }
 
@@ -86,6 +71,7 @@ public class ATTSubsystem extends PIDSubsystem
     protected void usePIDOutput(double v)
     {
         double pidOut;
+
         if (current == Stage.STRAIGHT_DRIVE)
             pidOut = -v;
         else
@@ -99,8 +85,25 @@ public class ATTSubsystem extends PIDSubsystem
         if (current == Stage.STRAIGHT_DRIVE && Math.abs(setPoint - gyro.getPitch()) < tolerance)
         {
             System.out.println("Entering Balance Drive");
-            initialize(Stage.BALANCE_DRIVE);
+            this.switchToBalanceDrive();
         }
+    }
+
+    private void switchToBalanceDrive()
+    {
+        current = Stage.BALANCE_DRIVE;
+        setPoint = horizontalPitch;
+        tolerance = 0.1;
+
+        this.getPIDController().reset();
+
+        this.getPIDController().setPID(P_BALANCE, I_BALANCE, D_BALANCE);
+        this.getPIDController().setSetpoint(setPoint);
+
+        this.setAbsoluteTolerance(tolerance);
+        this.setOutputRange(-0.03 * MIN_PITCH, 0.03 * MIN_PITCH);
+
+        this.enable();
     }
 
     @Override
@@ -112,6 +115,6 @@ public class ATTSubsystem extends PIDSubsystem
     @Override
     protected void initDefaultCommand()
     {
-        // Nothing here.
+
     }
 }

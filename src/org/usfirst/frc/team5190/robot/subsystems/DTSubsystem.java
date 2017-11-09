@@ -40,8 +40,15 @@ public class DTSubsystem extends Subsystem
 		this.setDefaultCommand(new JOYCommand());
 	}
 	
-	public void end()
+	public void stop()
     {
     	robotDrive.drive(0, 0);
+    }
+
+    public void reset()
+    {
+        robotDrive.drive(0, 0);
+        robotDrive.setMaxOutput(0.5);
+        System.out.println("DTSubsystem Reset.");
     }
 }
