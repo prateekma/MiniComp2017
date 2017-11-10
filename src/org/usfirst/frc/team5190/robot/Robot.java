@@ -6,11 +6,11 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import org.usfirst.frc.team5190.robot.commands.ETTCommand;
 import org.usfirst.frc.team5190.robot.commands.STTCommand;
 import org.usfirst.frc.team5190.robot.subsystems.ATTSubsystem;
-import org.usfirst.frc.team5190.robot.subsystems.DTSubsystem;
+import org.usfirst.frc.team5190.robot.subsystems.JDTSubsystem;
 
 public class Robot extends IterativeRobot
 {
-    public static DTSubsystem driveTrain = new DTSubsystem();
+    public static JDTSubsystem driveTrain = new JDTSubsystem();
     public static ATTSubsystem teeterTotter = new ATTSubsystem();
     public static OI oi;
 
