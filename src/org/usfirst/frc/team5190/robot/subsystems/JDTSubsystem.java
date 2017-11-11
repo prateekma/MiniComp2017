@@ -17,6 +17,7 @@ public class JDTSubsystem extends DTSubsystem
     {
         robotDrive = new RobotDrive(jFrontLeft, jRearLeft, jFrontRight, jRearRight);
         gyro = new AHRS(SPI.Port.kMXP);
+        robotDrive.setSafetyEnabled(false);
     }
 
     @Override
