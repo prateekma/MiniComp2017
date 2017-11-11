@@ -12,7 +12,7 @@ public class Robot extends IterativeRobot
 {
     public static JDTSubsystem driveTrain = new JDTSubsystem();
     public static ATTSubsystem teeterTotter = new ATTSubsystem();
-    public static OI oi;
+    public static OI oi = new OI();
 
     private STTCommand sttCommand = new STTCommand();
     private ETTCommand ettCommand = new ETTCommand();
@@ -52,14 +52,14 @@ public class Robot extends IterativeRobot
     @Override
     public void teleopInit()
     {
-        System.out.println("Manual Init.");
+        System.out.println("Teleop Init.");
         ettCommand.start();
     }
 
     @Override
     public void teleopPeriodic()
     {
-        Scheduler.getInstance().run();
+    	Scheduler.getInstance().run();
     }
 
     @Override

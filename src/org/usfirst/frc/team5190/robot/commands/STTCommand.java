@@ -9,8 +9,8 @@ public class STTCommand extends Command
     {
         super("STTCommand");
 
-        this.requires(Robot.driveTrain);
-        this.requires(Robot.teeterTotter);
+        requires(Robot.driveTrain);
+        requires(Robot.teeterTotter);
     }
 
     @Override

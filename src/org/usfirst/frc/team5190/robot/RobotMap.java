@@ -7,19 +7,19 @@ import edu.wpi.first.wpilibj.Jaguar;
 public class RobotMap
 {
     private static final int FRONT_LEFT = 0;
-    private static final int FRONT_RIGHT = 14;
-    private static final int REAR_LEFT = 1;
-    private static final int REAR_RIGHT = 15;
+    private static final int FRONT_RIGHT = 1;
+    private static final int REAR_LEFT = 2;
+    private static final int REAR_RIGHT = 3;
 
-    public static final double P_STRAIGHT = 0.01;
-    public static final double I_STRAIGHT = 0.01;
-    public static final double D_STRAIGHT = 0.03;
+    public static final double P_STRAIGHT = 0.2;
+    public static final double I_STRAIGHT = 0;
+    public static final double D_STRAIGHT = 0;
 
-    public static final double P_BALANCE = 0.04;
-    public static final double I_BALANCE = 0.01;
-    public static final double D_BALANCE = 0.03;
+    public static final double P_BALANCE = 0.035;
+    public static final double I_BALANCE = 0;
+    public static final double D_BALANCE = 0.3;
 
-    public static final double MIN_PITCH = 7;
+    public static final double MIN_PITCH = 5;
 
     public static AHRS gyro;
 

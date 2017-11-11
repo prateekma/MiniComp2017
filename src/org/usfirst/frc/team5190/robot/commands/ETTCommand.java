@@ -9,8 +9,8 @@ public class ETTCommand extends Command
     {
         super("ETTCommand");
 
-        this.requires(Robot.driveTrain);
-        this.requires(Robot.teeterTotter);
+        requires(Robot.driveTrain);
+        requires(Robot.teeterTotter);
     }
 
     @Override

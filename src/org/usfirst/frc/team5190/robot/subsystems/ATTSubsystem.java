@@ -11,6 +11,8 @@ public class ATTSubsystem extends PIDSubsystem
     private double horizontalPitch;
     private double tolerance;
 
+    private boolean printedPID = false;
+
     public enum Stage
     {
         STRAIGHT_DRIVE, BALANCE_DRIVE
@@ -26,6 +28,9 @@ public class ATTSubsystem extends PIDSubsystem
 
     public void reset()
     {
+        System.out.println("ATT Subsystem Reset.");
+        System.out.println("P: " + P_STRAIGHT + "  |  " + "I: " + I_STRAIGHT + "  |  " + "D: " + D_STRAIGHT);
+
         gyro.reset();
         horizontalPitch = gyro.getPitch();
 
@@ -40,7 +45,40 @@ public class ATTSubsystem extends PIDSubsystem
         this.getPIDController().setSetpoint(setPoint);
 
         this.setAbsoluteTolerance(tolerance);
-        this.setOutputRange(-.5, .5);
+        this.setOutputRange(-.3, .3);
+    }
+
+    private void switchToBalanceDrive()
+    {
+        current = Stage.BALANCE_DRIVE;
+        setPoint = horizontalPitch;
+        tolerance = 0.1;
+
+        this.getPIDController().reset();
+
+        this.getPIDController().setPID(P_BALANCE, I_BALANCE, D_BALANCE);
+        this.getPIDController().setSetpoint(setPoint);
+
+        this.setAbsoluteTolerance(tolerance);
+        this.setOutputRange(-0.035 * MIN_PITCH, 0.035 * MIN_PITCH);
+
+        this.enable();
+    }
+
+    private void debugConsole(double pidOut)
+    {
+        String stage  = current.toString();
+        String input  = String.valueOf(returnPIDInput()).substring(0, 7);
+        String set    = String.valueOf(setPoint).substring(0, 7);
+        String output = String.valueOf(pidOut).substring(0, 7);
+
+        if (!printedPID)
+        {
+            System.out.println("P: " + P_BALANCE + "  |  " + "I: " + I_BALANCE + "  |  " + "D: " + D_BALANCE);
+            printedPID = true;
+        }
+
+        System.out.println("ST: " + stage + "  |  " + "IN: " + input + "  |  " + "SP: " + set + "  |  " + "OUT: " + output);
     }
 
     public void start()
@@ -58,12 +96,7 @@ public class ATTSubsystem extends PIDSubsystem
     @Override
     protected double returnPIDInput()
     {
-        double pitch = gyro.getPitch();
-
-        if (current == Stage.STRAIGHT_DRIVE && pitch < 0)
-            return 0;
-
-        return pitch;
+        return gyro.getPitch();
     }
 
     @Override
@@ -72,11 +105,11 @@ public class ATTSubsystem extends PIDSubsystem
         double pidOut;
 
         if (current == Stage.STRAIGHT_DRIVE)
-            pidOut = -v;
-        else
             pidOut = v;
+        else
+            pidOut = -v;
 
-        System.out.println(returnPIDInput() + "------------->" + pidOut);
+        debugConsole(pidOut);
         Robot.driveTrain.robotDrive.drive(pidOut, 0);
 
         if (current == Stage.STRAIGHT_DRIVE && Math.abs(setPoint - gyro.getPitch()) < tolerance)
@@ -84,23 +117,6 @@ public class ATTSubsystem extends PIDSubsystem
             System.out.println("Entering Balance Drive");
             this.switchToBalanceDrive();
         }
-    }
-
-    private void switchToBalanceDrive()
-    {
-        current = Stage.BALANCE_DRIVE;
-        setPoint = horizontalPitch;
-        tolerance = 0.1;
-
-        this.getPIDController().reset();
-
-        this.getPIDController().setPID(P_BALANCE, I_BALANCE, D_BALANCE);
-        this.getPIDController().setSetpoint(setPoint);
-
-        this.setAbsoluteTolerance(tolerance);
-        this.setOutputRange(-0.03 * MIN_PITCH, 0.03 * MIN_PITCH);
-
-        this.enable();
     }
 
     @Override
@@ -114,4 +130,5 @@ public class ATTSubsystem extends PIDSubsystem
     {
 
     }
+
 }

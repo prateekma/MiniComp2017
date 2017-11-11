@@ -9,7 +9,7 @@ public class JOYCommand extends Command
     public JOYCommand()
     {
         super("JOYCommand");
-        this.requires(Robot.driveTrain);
+        requires(Robot.driveTrain);
     }
 
     @Override

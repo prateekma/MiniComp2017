@@ -9,8 +9,8 @@ public class RSSCommand extends Command
     {
         super("RSSCommand");
 
-        this.requires(Robot.driveTrain);
-        this.requires(Robot.teeterTotter);
+        requires(Robot.driveTrain);
+        requires(Robot.teeterTotter);
     }
 
     @Override
