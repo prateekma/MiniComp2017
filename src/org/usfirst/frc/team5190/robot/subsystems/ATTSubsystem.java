@@ -75,7 +75,7 @@ public class ATTSubsystem extends PIDSubsystem
         String set    = String.valueOf(setPoint).substring(0, 7);
         String output = String.valueOf(pidOut).substring(0, 7);
 
-        if (!printedPID)
+        if (!printedPID && pidOut != 0)
         {
             System.out.println("P: " + P_BALANCE + "  |  " + "I: " + I_BALANCE + "  |  " + "D: " + D_BALANCE);
             printedPID = true;
