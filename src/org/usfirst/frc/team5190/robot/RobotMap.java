@@ -1,6 +1,5 @@
 package org.usfirst.frc.team5190.robot;
 
-import com.ctre.CANTalon;
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.Jaguar;
 
@@ -28,8 +27,8 @@ public class RobotMap
     public static Jaguar jRearLeft = new Jaguar(REAR_LEFT);
     public static Jaguar jRearRight = new Jaguar(REAR_RIGHT);
 
-    public static CANTalon frontLeft = new CANTalon(FRONT_LEFT);
-    public static CANTalon frontRight = new CANTalon(FRONT_RIGHT);
-    public static CANTalon rearLeft = new CANTalon(REAR_LEFT);
-    public static CANTalon rearRight = new CANTalon(REAR_RIGHT);
+//    public static CANTalon frontLeft = new CANTalon(FRONT_LEFT);
+//    public static CANTalon frontRight = new CANTalon(FRONT_RIGHT);
+//    public static CANTalon rearLeft = new CANTalon(REAR_LEFT);
+//    public static CANTalon rearRight = new CANTalon(REAR_RIGHT);
 }
