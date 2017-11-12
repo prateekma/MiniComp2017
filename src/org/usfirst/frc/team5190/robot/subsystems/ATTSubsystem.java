@@ -32,6 +32,7 @@ public class ATTSubsystem extends PIDSubsystem
         System.out.println("ATT Subsystem Reset.");
         System.out.println("P: " + P_STRAIGHT + "  |  " + "I: " + I_STRAIGHT + "  |  " + "D: " + D_STRAIGHT);
         debugConsole(0);
+        infoToSmartDashboard(0);
 
         gyro.reset();
         horizontalPitch = gyro.getPitch();
