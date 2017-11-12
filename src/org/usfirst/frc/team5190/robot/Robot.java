@@ -1,8 +1,10 @@
 package org.usfirst.frc.team5190.robot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team5190.robot.commands.ETTCommand;
 import org.usfirst.frc.team5190.robot.commands.STTCommand;
 import org.usfirst.frc.team5190.robot.subsystems.ATTSubsystem;
@@ -17,10 +19,24 @@ public class Robot extends IterativeRobot
     private STTCommand sttCommand = new STTCommand();
     private ETTCommand ettCommand = new ETTCommand();
 
+    private Preferences prefs;
+
     @Override
     public void robotInit()
     {
         System.out.println("Robot Init.");
+
+        prefs = Preferences.getInstance();
+
+//        P_STRAIGHT = prefs.getDouble("P Straight", 0.2);
+//        I_STRAIGHT = prefs.getDouble("I Straight", 0);
+//        D_STRAIGHT = prefs.getDouble("D Straight", 0);
+//
+//        P_BALANCE = prefs.getDouble("P Balance", 0.035);
+//        I_BALANCE = prefs.getDouble("I Balance", 0);
+//        D_BALANCE = prefs.getDouble("D Balance", 0.3);
+
+        SmartDashboard.putData("PID Controller", teeterTotter.getPIDController());
     }
 
     @Override
