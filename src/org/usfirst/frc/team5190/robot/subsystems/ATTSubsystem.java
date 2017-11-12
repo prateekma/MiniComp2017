@@ -1,6 +1,7 @@
 package org.usfirst.frc.team5190.robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team5190.robot.Robot;
 
 import static org.usfirst.frc.team5190.robot.RobotMap.*;
@@ -82,6 +83,14 @@ public class ATTSubsystem extends PIDSubsystem
         System.out.println("ST: " + stage + "  |  " + "IN: " + input + "  |  " + "SP: " + set + "  |  " + "OUT: " + output);
     }
 
+    private void infoToSmartDashboard(double pidOut)
+    {
+        SmartDashboard.putString("ATTSubsystem Stage",    current.toString());
+        SmartDashboard.putString("ATTSubsystem Input",    String.valueOf(returnPIDInput()).substring(0, 7));
+        SmartDashboard.putString("ATTSubsystem Setpoint", String.valueOf(setPoint).substring(0, 7));
+        SmartDashboard.putString("ATTSubsystem Output",   String.valueOf(pidOut).substring(0, 7));
+    }
+
     public void start()
     {
         System.out.println("ATT Subsystem Enabled.");
@@ -111,13 +120,12 @@ public class ATTSubsystem extends PIDSubsystem
             pidOut = -v;
 
         debugConsole(pidOut);
+        infoToSmartDashboard(pidOut);
+
         Robot.driveTrain.robotDrive.drive(pidOut, 0);
 
         if (current == Stage.STRAIGHT_DRIVE && Math.abs(setPoint - gyro.getPitch()) < tolerance)
-        {
-            System.out.println("Entering Balance Drive");
             this.switchToBalanceDrive();
-        }
     }
 
     @Override
@@ -131,5 +139,4 @@ public class ATTSubsystem extends PIDSubsystem
     {
 
     }
-
 }
