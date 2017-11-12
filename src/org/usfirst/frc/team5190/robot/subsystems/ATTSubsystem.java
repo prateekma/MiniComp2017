@@ -125,7 +125,7 @@ public class ATTSubsystem extends PIDSubsystem
 
         Robot.driveTrain.robotDrive.drive(pidOut, 0);
 
-        if (current == Stage.STRAIGHT_DRIVE && Math.abs(setPoint - gyro.getPitch()) < tolerance)
+        if (current == Stage.STRAIGHT_DRIVE && Math.abs(returnPIDInput() - horizontalPitch) > 3)
             this.switchToBalanceDrive();
     }
 
