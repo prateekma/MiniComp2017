@@ -9,6 +9,8 @@ import org.usfirst.frc.team5190.robot.commands.STTCommand;
 import org.usfirst.frc.team5190.robot.subsystems.ATTSubsystem;
 import org.usfirst.frc.team5190.robot.subsystems.JDTSubsystem;
 
+/* CHANGE OUTPUT PATH IN INTELLIJ IF PROGRAM DOESN'T COMPILE */
+
 public class Robot extends IterativeRobot
 {
     public static JDTSubsystem driveTrain = new JDTSubsystem();
