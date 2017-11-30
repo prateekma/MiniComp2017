@@ -16,28 +16,28 @@ public class DTSubsystem extends Subsystem
 
     public DTSubsystem()
     {
-        frontLeft.changeControlMode(CANTalon.TalonControlMode.PercentVbus);
-        rearLeft.changeControlMode(CANTalon.TalonControlMode.Follower);
-        rearLeft.set(frontLeft.getDeviceID());
+        frontLeft   .changeControlMode(CANTalon.TalonControlMode.PercentVbus);
+        rearLeft    .changeControlMode(CANTalon.TalonControlMode.Follower);
+        rearLeft    .set(frontLeft.getDeviceID());
 
-        frontRight.changeControlMode(CANTalon.TalonControlMode.PercentVbus);
-        rearRight.changeControlMode(CANTalon.TalonControlMode.Follower);
-        rearRight.set(frontRight.getDeviceID());
+        frontRight  .changeControlMode(CANTalon.TalonControlMode.PercentVbus);
+        rearRight   .changeControlMode(CANTalon.TalonControlMode.Follower);
+        rearRight   .set(frontRight.getDeviceID());
 
-        robotDrive = new RobotDrive(frontLeft, frontRight);
+        robotDrive  = new RobotDrive(frontLeft, frontRight);
 
-        gyro = new AHRS(SPI.Port.kMXP);
-    }
-
-    public void drive()
-    {
-        robotDrive.arcadeDrive(Robot.oi.getJoystick());
+        gyro        = new AHRS(SPI.Port.kMXP);
     }
 
     @Override
     public void initDefaultCommand()
     {
         this.setDefaultCommand(new JOYCommand());
+    }
+
+    public void drive()
+    {
+        robotDrive.arcadeDrive(Robot.oi.getJoystick());
     }
 
     public void stop()

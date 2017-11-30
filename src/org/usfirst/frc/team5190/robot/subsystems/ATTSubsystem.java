@@ -1,7 +1,6 @@
 package org.usfirst.frc.team5190.robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team5190.robot.Robot;
 
 import static org.usfirst.frc.team5190.robot.RobotMap.*;
@@ -32,7 +31,6 @@ public class ATTSubsystem extends PIDSubsystem
         System.out.println("ATT Subsystem Reset.");
         System.out.println("P: " + P_STRAIGHT + "  |  " + "I: " + I_STRAIGHT + "  |  " + "D: " + D_STRAIGHT);
         debugConsole(0);
-        infoToSmartDashboard(0);
 
         gyro.reset();
         horizontalPitch = gyro.getPitch();
@@ -70,9 +68,9 @@ public class ATTSubsystem extends PIDSubsystem
 
     private void debugConsole(double pidOut)
     {
-        String stage  = current.toString();
-        String input  = String.valueOf(returnPIDInput()).substring(0, 7);
-        String set    = String.valueOf(setPoint).substring(0, 7);
+        String stage = current.toString();
+        String input = String.valueOf(returnPIDInput()).substring(0, 7);
+        String set = String.valueOf(setPoint).substring(0, 7);
         String output = String.valueOf(pidOut).substring(0, 7);
 
         if (!printedPID && pidOut != 0)
@@ -82,14 +80,6 @@ public class ATTSubsystem extends PIDSubsystem
         }
 
         System.out.println("ST: " + stage + "  |  " + "IN: " + input + "  |  " + "SP: " + set + "  |  " + "OUT: " + output);
-    }
-
-    private void infoToSmartDashboard(double pidOut)
-    {
-        SmartDashboard.putString("ATTSubsystem Stage",    current.toString());
-        SmartDashboard.putString("ATTSubsystem Input",    String.valueOf(returnPIDInput()).substring(0, 7));
-        SmartDashboard.putString("ATTSubsystem Setpoint", String.valueOf(setPoint).substring(0, 7));
-        SmartDashboard.putString("ATTSubsystem Output",   String.valueOf(pidOut).substring(0, 7));
     }
 
     public void start()
@@ -121,7 +111,6 @@ public class ATTSubsystem extends PIDSubsystem
             pidOut = -v;
 
         debugConsole(pidOut);
-        infoToSmartDashboard(pidOut);
 
         Robot.driveTrain.robotDrive.drive(pidOut, 0);
 
