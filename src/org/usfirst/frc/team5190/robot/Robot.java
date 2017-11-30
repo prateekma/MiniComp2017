@@ -1,10 +1,16 @@
 package org.usfirst.frc.team5190.robot;
 
+/*
+  FRC Team 5190
+  Team 3rd Pick
+ */
+
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team5190.robot.commands.ETTCommand;
+import org.usfirst.frc.team5190.robot.commands.RSSCommand;
 import org.usfirst.frc.team5190.robot.commands.STTCommand;
 import org.usfirst.frc.team5190.robot.subsystems.ATTSubsystem;
 import org.usfirst.frc.team5190.robot.subsystems.DTSubsystem;
@@ -13,10 +19,12 @@ import org.usfirst.frc.team5190.robot.subsystems.DTSubsystem;
 
 public class Robot extends IterativeRobot
 {
+    // Subsystem Declaration
     public static DTSubsystem driveTrain;
     public static ATTSubsystem teeterTotter;
     public static OI oi;
 
+    // Command Declaration and Instantiation
     private STTCommand sttCommand = new STTCommand();
     private ETTCommand ettCommand = new ETTCommand();
 
@@ -24,9 +32,14 @@ public class Robot extends IterativeRobot
     public void robotInit()
     {
         System.out.println("Robot Init.");
+
+        // Subsystem Instantiation
         driveTrain = new DTSubsystem();
         teeterTotter = new ATTSubsystem();
         oi = new OI();
+
+        // Reset subsystems
+        new RSSCommand().start();
 
         SmartDashboard.putData("ATT PID Controller", teeterTotter.getPIDController());
     }
@@ -35,6 +48,8 @@ public class Robot extends IterativeRobot
     public void disabledInit()
     {
         System.out.println("Disabled Init.");
+
+        // End Autonomous PID
         ettCommand.start();
     }
 
@@ -48,6 +63,8 @@ public class Robot extends IterativeRobot
     public void autonomousInit()
     {
         System.out.println("Autonomous Init.");
+
+        // Start Autonomous PID
         sttCommand.start();
     }
 
@@ -61,6 +78,8 @@ public class Robot extends IterativeRobot
     public void teleopInit()
     {
         System.out.println("Teleop Init.");
+
+        // End Autonomous PID
         ettCommand.start();
     }
 

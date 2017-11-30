@@ -1,5 +1,10 @@
 package org.usfirst.frc.team5190.robot.subsystems;
 
+/*
+  FRC Team 5190
+  Team 3rd Pick
+ */
+
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import org.usfirst.frc.team5190.robot.Robot;
 
@@ -28,13 +33,16 @@ public class ATTSubsystem extends PIDSubsystem
 
     public void reset()
     {
+        // Debug
         System.out.println("ATT Subsystem Reset.");
         System.out.println("P: " + P_STRAIGHT + "  |  " + "I: " + I_STRAIGHT + "  |  " + "D: " + D_STRAIGHT);
         debugConsole(0);
 
+        // Reset and register "zero" pitch
         gyro.reset();
         horizontalPitch = gyro.getPitch();
 
+        // Set stage
         current = Stage.STRAIGHT_DRIVE;
         setPoint = MIN_PITCH + horizontalPitch;
         tolerance = 0.5;
@@ -42,24 +50,25 @@ public class ATTSubsystem extends PIDSubsystem
         if (this.getPIDController().isEnabled())
             disable();
 
+        // Set constants
         this.getPIDController().setPID(P_STRAIGHT, I_STRAIGHT, D_STRAIGHT);
         this.getPIDController().setSetpoint(setPoint);
-
         this.setAbsoluteTolerance(tolerance);
         this.setOutputRange(-.3, .3);
     }
 
     private void switchToBalanceDrive()
     {
+        // Set stage
         current = Stage.BALANCE_DRIVE;
         setPoint = horizontalPitch;
         tolerance = 0.1;
 
         this.getPIDController().reset();
 
+        // Set constants
         this.getPIDController().setPID(P_BALANCE, I_BALANCE, D_BALANCE);
         this.getPIDController().setSetpoint(setPoint);
-
         this.setAbsoluteTolerance(tolerance);
         this.setOutputRange(-0.035 * MIN_PITCH, 0.035 * MIN_PITCH);
 

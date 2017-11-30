@@ -1,5 +1,10 @@
 package org.usfirst.frc.team5190.robot.subsystems;
 
+/*
+  FRC Team 5190
+  Team 3rd Pick
+ */
+
 import com.ctre.CANTalon;
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.RobotDrive;
@@ -16,16 +21,20 @@ public class DTSubsystem extends Subsystem
 
     public DTSubsystem()
     {
+        // Left drive train motors instantiation and config.
         frontLeft   .changeControlMode(CANTalon.TalonControlMode.PercentVbus);
         rearLeft    .changeControlMode(CANTalon.TalonControlMode.Follower);
         rearLeft    .set(frontLeft.getDeviceID());
 
+        // Right drive train motors instantiation and config.
         frontRight  .changeControlMode(CANTalon.TalonControlMode.PercentVbus);
         rearRight   .changeControlMode(CANTalon.TalonControlMode.Follower);
         rearRight   .set(frontRight.getDeviceID());
 
+        // RobotDrive object instantiation
         robotDrive  = new RobotDrive(frontLeft, frontRight);
 
+        // NavX instantiation
         gyro        = new AHRS(SPI.Port.kMXP);
     }
 
