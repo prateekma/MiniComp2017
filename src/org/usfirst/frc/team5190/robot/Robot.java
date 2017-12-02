@@ -24,9 +24,9 @@ public class Robot extends IterativeRobot
     public static ATTSubsystem teeterTotter;
     public static OI oi;
 
-    // Command Declaration and Instantiation
-    private STTCommand sttCommand = new STTCommand();
-    private ETTCommand ettCommand = new ETTCommand();
+    // Command Declaration
+    private STTCommand sttCommand;
+    private ETTCommand ettCommand;
 
     @Override
     public void robotInit()
@@ -37,6 +37,10 @@ public class Robot extends IterativeRobot
         driveTrain = new DTSubsystem();
         teeterTotter = new ATTSubsystem();
         oi = new OI();
+
+        // Command Instantiation
+        sttCommand = new STTCommand();
+        ettCommand = new ETTCommand();
 
         // Reset subsystems
         new RSSCommand().start();

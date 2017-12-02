@@ -36,6 +36,8 @@ public class DTSubsystem extends Subsystem
 
         // NavX instantiation
         gyro        = new AHRS(SPI.Port.kMXP);
+
+        robotDrive.setMaxOutput(0.9);
     }
 
     @Override
@@ -46,7 +48,7 @@ public class DTSubsystem extends Subsystem
 
     public void drive()
     {
-        robotDrive.arcadeDrive(Robot.oi.getJoystick());
+        robotDrive.arcadeDrive(-Robot.oi.getJoystick().getY(), -Robot.oi.getJoystick().getX());
     }
 
     public void stop()
