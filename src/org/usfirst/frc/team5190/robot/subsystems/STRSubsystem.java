@@ -3,7 +3,6 @@ package org.usfirst.frc.team5190.robot.subsystems;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team5190.robot.Robot;
-import org.usfirst.frc.team5190.robot.commands.BALCommand;
 
 import static org.usfirst.frc.team5190.robot.RobotMap.*;
 
@@ -51,7 +50,7 @@ public class STRSubsystem extends PIDSubsystem
         {
             initialPitch = initPitch;
             this.disable();
-            new BALCommand().start();
+            Robot.balanceDrive.enable();
             return;
         }
 
