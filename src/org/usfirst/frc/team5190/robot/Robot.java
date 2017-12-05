@@ -9,11 +9,11 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import org.usfirst.frc.team5190.robot.commands.ETTCommand;
+import org.usfirst.frc.team5190.robot.commands.BALCommand;
 import org.usfirst.frc.team5190.robot.commands.RSSCommand;
-import org.usfirst.frc.team5190.robot.commands.STTCommand;
-import org.usfirst.frc.team5190.robot.subsystems.ATTSubsystem;
+import org.usfirst.frc.team5190.robot.subsystems.BALSubsystem;
 import org.usfirst.frc.team5190.robot.subsystems.DTSubsystem;
+import org.usfirst.frc.team5190.robot.subsystems.STRSubsystem;
 
 /* CHANGE OUTPUT PATH IN INTELLIJ IF PROGRAM DOESN'T COMPILE */
 
@@ -21,12 +21,12 @@ public class Robot extends IterativeRobot
 {
     // Subsystem Declaration
     public static DTSubsystem driveTrain;
-    public static ATTSubsystem teeterTotter;
+    public static BALSubsystem balanceDrive;
+    public static STRSubsystem straightDrive;
     public static OI oi;
 
     // Command Declaration
-    private STTCommand sttCommand;
-    private ETTCommand ettCommand;
+    private BALCommand balCommand;
 
     @Override
     public void robotInit()
@@ -35,17 +35,18 @@ public class Robot extends IterativeRobot
 
         // Subsystem Instantiation
         driveTrain = new DTSubsystem();
-        teeterTotter = new ATTSubsystem();
+        balanceDrive = new BALSubsystem();
+        straightDrive = new STRSubsystem();
         oi = new OI();
 
         // Command Instantiation
-        sttCommand = new STTCommand();
-        ettCommand = new ETTCommand();
+        balCommand = new BALCommand();
 
         // Reset subsystems
         new RSSCommand().start();
 
-        SmartDashboard.putData("ATT PID Controller", teeterTotter.getPIDController());
+        SmartDashboard.putData("Straight Drive PID Controller", straightDrive.getPIDController());
+        SmartDashboard.putData("Balance Drive PID Controller", balanceDrive.getPIDController());
     }
 
     @Override
@@ -54,7 +55,7 @@ public class Robot extends IterativeRobot
         System.out.println("Disabled Init.");
 
         // End Autonomous PID
-        ettCommand.start();
+        balCommand.cancel();
     }
 
     @Override
@@ -69,7 +70,7 @@ public class Robot extends IterativeRobot
         System.out.println("Autonomous Init.");
 
         // Start Autonomous PID
-        sttCommand.start();
+        balCommand.start();
     }
 
     @Override
@@ -84,7 +85,7 @@ public class Robot extends IterativeRobot
         System.out.println("Teleop Init.");
 
         // End Autonomous PID
-        ettCommand.start();
+        balCommand.cancel();
     }
 
     @Override

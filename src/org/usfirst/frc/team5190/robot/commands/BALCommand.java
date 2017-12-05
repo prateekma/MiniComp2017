@@ -8,32 +8,33 @@ package org.usfirst.frc.team5190.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc.team5190.robot.Robot;
 
-public class STTCommand extends Command
+public class BALCommand extends Command
 {
-    public STTCommand()
+    public BALCommand()
     {
-        super("STTCommand");
+        super("BALCommand");
 
         requires(Robot.driveTrain);
-        requires(Robot.teeterTotter);
+        requires(Robot.balanceDrive);
+        requires(Robot.straightDrive);
     }
 
     @Override
     public void initialize()
     {
-        Robot.teeterTotter.start();
+        Robot.balanceDrive.enable();
     }
 
     @Override
     protected void end()
     {
-        Robot.teeterTotter.stop();
+        Robot.balanceDrive.disable();
     }
 
     @Override
     protected void interrupted()
     {
-        Robot.teeterTotter.stop();
+        Robot.balanceDrive.disable();
     }
 
     @Override

@@ -15,14 +15,15 @@ public class RSSCommand extends Command
         super("RSSCommand");
 
         requires(Robot.driveTrain);
-        requires(Robot.teeterTotter);
+        requires(Robot.balanceDrive);
+        requires(Robot.straightDrive);
     }
 
     @Override
     protected void initialize()
     {
-        Robot.teeterTotter.reset();
         Robot.driveTrain.reset();
+        Robot.straightDrive.reset();
     }
 
     @Override
