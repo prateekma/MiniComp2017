@@ -1,6 +1,7 @@
 package org.usfirst.frc.team5190.robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team5190.robot.Robot;
 import org.usfirst.frc.team5190.robot.commands.BALCommand;
 
@@ -28,6 +29,8 @@ public class STRSubsystem extends PIDSubsystem
 		gyro.reset();
 		initYaw = gyro.getAngle();
 		initPitch =  gyro.getPitch();
+
+		SmartDashboard.putNumber("ZERO PITCH: ", initPitch);
 	}
 
 	public void reset()
