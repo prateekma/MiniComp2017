@@ -28,7 +28,7 @@ public class STRSubsystem extends PIDSubsystem
 	{
 		gyro.reset();
 		initYaw = gyro.getAngle();
-		initPitch =  gyro.getPitch();
+		initPitch = gyro.getPitch();
 
 		SmartDashboard.putNumber("ZERO PITCH: ", initPitch);
 	}

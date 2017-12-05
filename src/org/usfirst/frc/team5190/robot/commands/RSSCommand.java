@@ -10,25 +10,25 @@ import org.usfirst.frc.team5190.robot.Robot;
 
 public class RSSCommand extends Command
 {
-    public RSSCommand()
-    {
-        super("RSSCommand");
+	public RSSCommand()
+	{
+		super("RSSCommand");
 
-        requires(Robot.driveTrain);
-        requires(Robot.balanceDrive);
-        requires(Robot.straightDrive);
-    }
+		requires(Robot.driveTrain);
+		requires(Robot.balanceDrive);
+		requires(Robot.straightDrive);
+	}
 
-    @Override
-    protected void initialize()
-    {
-        Robot.driveTrain.reset();
-        Robot.straightDrive.reset();
-    }
+	@Override
+	protected void initialize()
+	{
+		Robot.driveTrain.reset();
+		Robot.straightDrive.reset();
+	}
 
-    @Override
-    protected boolean isFinished()
-    {
-        return true;
-    }
+	@Override
+	protected boolean isFinished()
+	{
+		return true;
+	}
 }

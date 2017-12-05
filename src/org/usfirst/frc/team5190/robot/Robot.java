@@ -19,84 +19,84 @@ import org.usfirst.frc.team5190.robot.subsystems.STRSubsystem;
 
 public class Robot extends IterativeRobot
 {
-    // Subsystem Declaration
-    public static DTSubsystem driveTrain;
-    public static BALSubsystem balanceDrive;
-    public static STRSubsystem straightDrive;
-    public static OI oi;
+	// Subsystem Declaration
+	public static DTSubsystem driveTrain;
+	public static BALSubsystem balanceDrive;
+	public static STRSubsystem straightDrive;
+	public static OI oi;
 
-    // Command Declaration
-    private BALCommand balCommand;
+	// Command Declaration
+	private BALCommand balCommand;
 
-    @Override
-    public void robotInit()
-    {
-        System.out.println("Robot Init.");
+	@Override
+	public void robotInit()
+	{
+		System.out.println("Robot Init.");
 
-        // Subsystem Instantiation
-        driveTrain = new DTSubsystem();
-        balanceDrive = new BALSubsystem();
-        straightDrive = new STRSubsystem();
-        oi = new OI();
+		// Subsystem Instantiation
+		driveTrain = new DTSubsystem();
+		balanceDrive = new BALSubsystem();
+		straightDrive = new STRSubsystem();
+		oi = new OI();
 
-        // Command Instantiation
-        balCommand = new BALCommand();
+		// Command Instantiation
+		balCommand = new BALCommand();
 
-        // Reset subsystems
-        new RSSCommand().start();
+		// Reset subsystems
+		new RSSCommand().start();
 
-        SmartDashboard.putData("Straight Drive PID Controller", straightDrive.getPIDController());
-        SmartDashboard.putData("Balance Drive PID Controller", balanceDrive.getPIDController());
-    }
+		SmartDashboard.putData("Straight Drive PID Controller", straightDrive.getPIDController());
+		SmartDashboard.putData("Balance Drive PID Controller", balanceDrive.getPIDController());
+	}
 
-    @Override
-    public void disabledInit()
-    {
-        System.out.println("Disabled Init.");
+	@Override
+	public void disabledInit()
+	{
+		System.out.println("Disabled Init.");
 
-        // End Autonomous PID
-        balCommand.cancel();
-    }
+		// End Autonomous PID
+		balCommand.cancel();
+	}
 
-    @Override
-    public void disabledPeriodic()
-    {
-        Scheduler.getInstance().run();
-    }
+	@Override
+	public void disabledPeriodic()
+	{
+		Scheduler.getInstance().run();
+	}
 
-    @Override
-    public void autonomousInit()
-    {
-        System.out.println("Autonomous Init.");
+	@Override
+	public void autonomousInit()
+	{
+		System.out.println("Autonomous Init.");
 
-        // Start Autonomous PID
-        balCommand.start();
-    }
+		// Start Autonomous PID
+		balCommand.start();
+	}
 
-    @Override
-    public void autonomousPeriodic()
-    {
-        Scheduler.getInstance().run();
-    }
+	@Override
+	public void autonomousPeriodic()
+	{
+		Scheduler.getInstance().run();
+	}
 
-    @Override
-    public void teleopInit()
-    {
-        System.out.println("Teleop Init.");
+	@Override
+	public void teleopInit()
+	{
+		System.out.println("Teleop Init.");
 
-        // End Autonomous PID
-        balCommand.cancel();
-    }
+		// End Autonomous PID
+		balCommand.cancel();
+	}
 
-    @Override
-    public void teleopPeriodic()
-    {
-    	Scheduler.getInstance().run();
-    }
+	@Override
+	public void teleopPeriodic()
+	{
+		Scheduler.getInstance().run();
+	}
 
-    @Override
-    public void testPeriodic()
-    {
-        LiveWindow.run();
-    }
+	@Override
+	public void testPeriodic()
+	{
+		LiveWindow.run();
+	}
 }
