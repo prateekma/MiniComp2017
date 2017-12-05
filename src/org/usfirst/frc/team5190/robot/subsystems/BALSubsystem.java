@@ -12,6 +12,8 @@ public class BALSubsystem extends PIDSubsystem
 	{
 		super("BALSubsystem", P_BALANCE, I_BALANCE, D_BALANCE);
 
+		this.getPIDController().reset();
+
 		this.setOutputRange(-0.3, 0.3);
 		this.setAbsoluteTolerance(BAL_TOLERANCE);
 		this.setSetpoint(initialPitch);
