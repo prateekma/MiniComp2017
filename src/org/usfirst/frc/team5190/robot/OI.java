@@ -12,22 +12,22 @@ import org.usfirst.frc.team5190.robot.commands.RSSCommand;
 
 public class OI
 {
-	// Joystick Declaration
-	private Joystick joy = new Joystick(0);
+    // Joystick Declaration
+    private Joystick joy = new Joystick(0);
 
-	OI()
-	{
-		// Joystick button declaration and instantiation
-		JoystickButton b2 = new JoystickButton(joy, 2);
-		JoystickButton b6 = new JoystickButton(joy, 6);
+    OI()
+    {
+        // Joystick button declaration and instantiation
+        JoystickButton b2 = new JoystickButton(joy, 2);
+        JoystickButton b6 = new JoystickButton(joy, 6);
 
-		// Ex. commands when buttons are pressed
-		b2.whenPressed(new RSSCommand());
-		b6.whenPressed(new BALCommand());
-	}
+        // Ex. commands when buttons are pressed
+        b2.whenPressed(new RSSCommand());
+        b6.whenPressed(new BALCommand());
+    }
 
-	public Joystick getJoystick()
-	{
-		return joy;
-	}
+    public Joystick getJoystick()
+    {
+        return joy;
+    }
 }

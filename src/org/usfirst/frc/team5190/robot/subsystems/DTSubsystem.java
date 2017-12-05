@@ -17,48 +17,48 @@ import static org.usfirst.frc.team5190.robot.RobotMap.*;
 
 public class DTSubsystem extends Subsystem
 {
-	RobotDrive robotDrive;
+    RobotDrive robotDrive;
 
-	public DTSubsystem()
-	{
-		// Left drive train motors instantiation and config.
-		frontLeft.changeControlMode(CANTalon.TalonControlMode.PercentVbus);
-		rearLeft.changeControlMode(CANTalon.TalonControlMode.Follower);
-		rearLeft.set(frontLeft.getDeviceID());
+    public DTSubsystem()
+    {
+        // Left drive train motors instantiation and config.
+        frontLeft.changeControlMode(CANTalon.TalonControlMode.PercentVbus);
+        rearLeft.changeControlMode(CANTalon.TalonControlMode.Follower);
+        rearLeft.set(frontLeft.getDeviceID());
 
-		// Right drive train motors instantiation and config.
-		frontRight.changeControlMode(CANTalon.TalonControlMode.PercentVbus);
-		rearRight.changeControlMode(CANTalon.TalonControlMode.Follower);
-		rearRight.set(frontRight.getDeviceID());
+        // Right drive train motors instantiation and config.
+        frontRight.changeControlMode(CANTalon.TalonControlMode.PercentVbus);
+        rearRight.changeControlMode(CANTalon.TalonControlMode.Follower);
+        rearRight.set(frontRight.getDeviceID());
 
-		// RobotDrive object instantiation
-		robotDrive = new RobotDrive(frontLeft, frontRight);
+        // RobotDrive object instantiation
+        robotDrive = new RobotDrive(frontLeft, frontRight);
 
-		// NavX instantiation
-		gyro = new AHRS(SPI.Port.kMXP);
+        // NavX instantiation
+        gyro = new AHRS(SPI.Port.kMXP);
 
-		robotDrive.setMaxOutput(0.9);
-	}
+        robotDrive.setMaxOutput(0.9);
+    }
 
-	@Override
-	public void initDefaultCommand()
-	{
-		this.setDefaultCommand(new JOYCommand());
-	}
+    @Override
+    public void initDefaultCommand()
+    {
+        this.setDefaultCommand(new JOYCommand());
+    }
 
-	public void drive()
-	{
-		robotDrive.arcadeDrive(-Robot.oi.getJoystick().getY(), -Robot.oi.getJoystick().getX());
-	}
+    public void drive()
+    {
+        robotDrive.arcadeDrive(-Robot.oi.getJoystick().getY(), -Robot.oi.getJoystick().getX());
+    }
 
-	public void stop()
-	{
-		robotDrive.drive(0, 0);
-	}
+    public void stop()
+    {
+        robotDrive.drive(0, 0);
+    }
 
-	public void reset()
-	{
-		robotDrive.drive(0, 0);
-		System.out.println("DTSubsystem Reset.");
-	}
+    public void reset()
+    {
+        robotDrive.drive(0, 0);
+        System.out.println("DTSubsystem Reset.");
+    }
 }
