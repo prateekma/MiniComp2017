@@ -22,19 +22,39 @@ public class BALCommand extends Command
     @Override
     public void initialize()
     {
-        Robot.balanceDrive.enable();
+        Robot.straightDrive.enable();
     }
 
     @Override
     protected void end()
     {
-        Robot.balanceDrive.disable();
+        try
+        {
+            Robot.balanceDrive.disable();
+        }
+        catch (Exception ignored) {}
+
+        try
+        {
+            Robot.straightDrive.disable();
+        }
+        catch (Exception ignored) {}
     }
 
     @Override
     protected void interrupted()
     {
-        Robot.balanceDrive.disable();
+	    try
+	    {
+		    Robot.balanceDrive.disable();
+	    }
+	    catch (Exception ignored) {}
+
+	    try
+	    {
+		    Robot.straightDrive.disable();
+	    }
+	    catch (Exception ignored) {}
     }
 
     @Override
