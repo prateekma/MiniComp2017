@@ -8,21 +8,20 @@ package org.usfirst.frc.team5190.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc.team5190.robot.Robot;
 
-public class RSSCommand extends Command
+public class ETTCommand extends Command
 {
-    public RSSCommand()
+    public ETTCommand()
     {
-        super("RSSCommand");
+        super("ETTCommand");
 
         requires(Robot.driveTrain);
         requires(Robot.teeterTotter);
     }
 
     @Override
-    protected void initialize()
+    public void initialize()
     {
-        Robot.teeterTotter.reset();
-        Robot.driveTrain.reset();
+        Robot.teeterTotter.stop();
     }
 
     @Override

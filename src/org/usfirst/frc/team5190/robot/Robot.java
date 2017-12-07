@@ -5,15 +5,16 @@ package org.usfirst.frc.team5190.robot;
   Team 3rd Pick
  */
 
+import com.ctre.CANTalon;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import org.usfirst.frc.team5190.robot.commands.BALCommand;
+import org.usfirst.frc.team5190.robot.commands.ETTCommand;
 import org.usfirst.frc.team5190.robot.commands.RSSCommand;
-import org.usfirst.frc.team5190.robot.subsystems.BALSubsystem;
+import org.usfirst.frc.team5190.robot.commands.STTCommand;
+import org.usfirst.frc.team5190.robot.subsystems.ATTSubsystem;
 import org.usfirst.frc.team5190.robot.subsystems.DTSubsystem;
-import org.usfirst.frc.team5190.robot.subsystems.STRSubsystem;
 
 /* CHANGE OUTPUT PATH IN INTELLIJ IF PROGRAM DOESN'T COMPILE */
 
@@ -21,12 +22,12 @@ public class Robot extends IterativeRobot
 {
     // Subsystem Declaration
     public static DTSubsystem driveTrain;
-    public static BALSubsystem balanceDrive;
-    public static STRSubsystem straightDrive;
+    public static ATTSubsystem teeterTotter;
     public static OI oi;
 
     // Command Declaration
-    private BALCommand balCommand;
+    private STTCommand sttCommand;
+    private ETTCommand ettCommand;
 
     @Override
     public void robotInit()
@@ -35,18 +36,17 @@ public class Robot extends IterativeRobot
 
         // Subsystem Instantiation
         driveTrain = new DTSubsystem();
-        balanceDrive = new BALSubsystem();
-        straightDrive = new STRSubsystem();
+        teeterTotter = new ATTSubsystem();
         oi = new OI();
 
         // Command Instantiation
-        balCommand = new BALCommand();
+        sttCommand = new STTCommand();
+        ettCommand = new ETTCommand();
 
         // Reset subsystems
         new RSSCommand().start();
 
-        SmartDashboard.putData("Straight Drive PID Controller", straightDrive.getPIDController());
-        SmartDashboard.putData("Balance Drive PID Controller", balanceDrive.getPIDController());
+        SmartDashboard.putData("ATT PID Controller", teeterTotter.getPIDController());
     }
 
     @Override
@@ -55,7 +55,7 @@ public class Robot extends IterativeRobot
         System.out.println("Disabled Init.");
 
         // End Autonomous PID
-        balCommand.cancel();
+        ettCommand.start();
     }
 
     @Override
@@ -70,7 +70,7 @@ public class Robot extends IterativeRobot
         System.out.println("Autonomous Init.");
 
         // Start Autonomous PID
-        balCommand.start();
+        sttCommand.start();
     }
 
     @Override
@@ -85,13 +85,48 @@ public class Robot extends IterativeRobot
         System.out.println("Teleop Init.");
 
         // End Autonomous PID
-        balCommand.cancel();
+        ettCommand.start();
+        for (CANTalon master : driveTrain.masters)
+        {
+            master.changeControlMode(CANTalon.TalonControlMode.PercentVbus);
+        }
     }
 
     @Override
     public void teleopPeriodic()
     {
-        Scheduler.getInstance().run();
+    	Scheduler.getInstance().run();
+
+    	/* DEBUG ENCODER BEGINS HERE */
+    	double leftYStick = oi.getJoystick().getY();
+
+    	double leftMotorOutput = RobotMap.frontLeft.getOutputVoltage() / RobotMap.frontLeft.getBusVoltage();
+    	double rightMotorOutput = RobotMap.frontRight.getOutputVoltage() / RobotMap.frontRight.getBusVoltage();
+
+        System.out.print("Left Out: " + leftMotorOutput + ", Left Speed: " + RobotMap.frontLeft.getSpeed() +
+                " | " + "Right Out: " + rightMotorOutput + ", Right Speed: " + RobotMap.frontRight.getSpeed());
+
+        if (oi.getJoystick().getRawButton(1))
+        {
+            double targetSpeed = leftYStick * 1500.0;
+            RobotMap.frontLeft.changeControlMode(CANTalon.TalonControlMode.Speed);
+            RobotMap.frontRight.changeControlMode(CANTalon.TalonControlMode.Speed);
+
+            System.out.print("Left Err: " + RobotMap.frontLeft.getError() + ", " + "Left Tar: " + targetSpeed +
+                    " | " + "Right Err: " + RobotMap.frontRight.getError() + "Right Tar: " + targetSpeed);
+
+        }
+
+        else
+        {
+            RobotMap.frontLeft.changeControlMode(CANTalon.TalonControlMode.PercentVbus);
+            RobotMap.frontRight.changeControlMode(CANTalon.TalonControlMode.PercentVbus);
+            RobotMap.frontLeft.set(leftYStick);
+            RobotMap.frontRight.set(leftYStick);
+        }
+
+        System.out.println();
+        /* DEBUG ENCODER ENDS HERE */
     }
 
     @Override

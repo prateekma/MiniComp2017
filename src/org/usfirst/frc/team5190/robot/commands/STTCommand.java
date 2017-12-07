@@ -8,26 +8,37 @@ package org.usfirst.frc.team5190.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc.team5190.robot.Robot;
 
-public class RSSCommand extends Command
+public class STTCommand extends Command
 {
-    public RSSCommand()
+    public STTCommand()
     {
-        super("RSSCommand");
+        super("STTCommand");
 
         requires(Robot.driveTrain);
         requires(Robot.teeterTotter);
     }
 
     @Override
-    protected void initialize()
+    public void initialize()
     {
-        Robot.teeterTotter.reset();
-        Robot.driveTrain.reset();
+        Robot.teeterTotter.start();
+    }
+
+    @Override
+    protected void end()
+    {
+        Robot.teeterTotter.stop();
+    }
+
+    @Override
+    protected void interrupted()
+    {
+        Robot.teeterTotter.stop();
     }
 
     @Override
     protected boolean isFinished()
     {
-        return true;
+        return false;
     }
 }
