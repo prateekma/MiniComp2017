@@ -7,7 +7,6 @@ package org.usfirst.frc.team5190.robot.subsystems;
 
 import com.ctre.CANTalon;
 import com.kauailabs.navx.frc.AHRS;
-import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import org.usfirst.frc.team5190.robot.Robot;
@@ -16,13 +15,10 @@ import java.util.ArrayList;
 
 import static org.usfirst.frc.team5190.robot.RobotMap.*;
 
+@SuppressWarnings({"unused", "WeakerAccess"})
 public class DTSubsystem extends Subsystem
 {
-    RobotDrive robotDrive;
     public ArrayList<CANTalon> masters = new ArrayList<>();
-
-    private double fGain = calculateFGain(calculateVelocity(0.0, 1440.0));  // fix zeros from actual data
-    private double pDiff = calculatePGain(.1, 0); // fix zeroes from actual data
 
     public DTSubsystem()
     {
@@ -33,36 +29,26 @@ public class DTSubsystem extends Subsystem
         {
             master.changeControlMode(CANTalon.TalonControlMode.Speed);
             master.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
+
             master.configEncoderCodesPerRev(360);
+
             master.configNominalOutputVoltage(0.0F, -0.0F);
             master.configPeakOutputVoltage(-12F, 12F);
         }
 
-        // Left drive train motors instantiation and config.
         frontLeft.reverseSensor(false);
-//        frontLeft.setPID(0.1, 0, 0, calculateFGain(1F, 116, 1440), 0, 0, 0);
+        frontLeft.setPID(DT_P_ERRO, 0, 0, DT_F_GAIN, 0, 0, 0);
 
         rearLeft.changeControlMode(CANTalon.TalonControlMode.Follower);
         rearLeft.set(frontLeft.getDeviceID());
-        rearLeft.enableBrakeMode(true);
 
-
-        // Right drive train motors instantiation and config.
         frontRight.reverseSensor(true);
-//        frontRight.setPID(0.1, 0, 0, calculateFGain(1F, 116, 1440), 0, 0, 0);
-
+        frontRight.setPID(DT_P_ERRO, 0, 0, DT_F_GAIN, 0, 0, 0);
 
         rearRight.changeControlMode(CANTalon.TalonControlMode.Follower);
         rearRight.set(frontRight.getDeviceID());
-        rearRight.enableBrakeMode(true);
 
-        // RobotDrive object instantiation
-        robotDrive = new RobotDrive(frontLeft, frontRight);
-
-        // NavX instantiation
         gyro = new AHRS(SPI.Port.kMXP);
-
-        robotDrive.setMaxOutput(116);
     }
 
     @Override
@@ -73,10 +59,37 @@ public class DTSubsystem extends Subsystem
 
     public void drive()
     {
-        robotDrive.arcadeDrive(-Robot.oi.getJoystick().getY(), -Robot.oi.getJoystick().getX());
+        falconArcadeDrive(-Robot.oi.getJoystick().getY(), -Robot.oi.getJoystick().getX());
     }
 
-    public void encoderDrive(double moveValue, double rotateValue)
+    public void falconTankDrive(double leftValue, double rightValue)
+    {
+        if (leftValue >= 0.0)
+        {
+            leftValue = leftValue * leftValue;
+        }
+        else
+        {
+            leftValue = -(leftValue * leftValue);
+        }
+        if (rightValue >= 0.0)
+        {
+            rightValue = rightValue * rightValue;
+        }
+        else
+        {
+            rightValue = -(rightValue * rightValue);
+        }
+
+        leftValue *= MAX_RPM;
+        rightValue *= MAX_RPM;
+
+        frontLeft.set(leftValue);
+        frontRight.set(rightValue);
+
+    }
+
+    public void falconArcadeDrive(double moveValue, double rotateValue)
     {
         double leftMotorSpeed, rightMotorSpeed;
 
@@ -123,18 +136,21 @@ public class DTSubsystem extends Subsystem
             }
         }
 
+        leftMotorSpeed *= MAX_RPM;
+        rightMotorSpeed *= MAX_RPM;
+
         frontLeft.set(leftMotorSpeed);
         frontRight.set(rightMotorSpeed);
     }
 
     public void stop()
     {
-        robotDrive.drive(0, 0);
+        falconArcadeDrive(0, 0);
     }
 
     public void reset()
     {
-        robotDrive.drive(0, 0);
+        falconArcadeDrive(0, 0);
         System.out.println("DTSubsystem Reset.");
     }
 }

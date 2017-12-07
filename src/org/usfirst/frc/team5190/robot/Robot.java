@@ -112,6 +112,9 @@ public class Robot extends IterativeRobot
             RobotMap.frontLeft.changeControlMode(CANTalon.TalonControlMode.Speed);
             RobotMap.frontRight.changeControlMode(CANTalon.TalonControlMode.Speed);
 
+            RobotMap.frontLeft.set(targetSpeed);
+            RobotMap.frontRight.set(targetSpeed);
+
             System.out.print("Left Err: " + RobotMap.frontLeft.getError() + ", " + "Left Tar: " + targetSpeed +
                     " | " + "Right Err: " + RobotMap.frontRight.getError() + "Right Tar: " + targetSpeed);
 
