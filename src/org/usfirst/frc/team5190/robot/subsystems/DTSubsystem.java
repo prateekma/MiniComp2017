@@ -180,12 +180,12 @@ public class DTSubsystem extends Subsystem
 
     public void stop()
     {
-        falconArcadeDrive(0, 0);
+        falconDirectDrive(0, 0);
     }
 
     public void reset()
     {
-        falconArcadeDrive(0, 0);
+        falconDirectDrive();0, 0);
         System.out.println("DTSubsystem Reset.");
     }
 }
