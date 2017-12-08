@@ -29,6 +29,10 @@ public class Robot extends IterativeRobot
     private STTCommand sttCommand;
     private ETTCommand ettCommand;
 
+    // Debug REMOVE LATER
+    private int i = 0;
+    private StringBuilder sb = new StringBuilder();
+
     @Override
     public void robotInit()
     {
@@ -86,6 +90,7 @@ public class Robot extends IterativeRobot
 
         // End Autonomous PID
         ettCommand.start();
+
         for (CANTalon master : driveTrain.masters)
         {
             master.changeControlMode(CANTalon.TalonControlMode.PercentVbus);
@@ -95,16 +100,17 @@ public class Robot extends IterativeRobot
     @Override
     public void teleopPeriodic()
     {
-    	Scheduler.getInstance().run();
+        Scheduler.getInstance().run();
 
     	/* DEBUG ENCODER BEGINS HERE */
-    	double leftYStick = oi.getJoystick().getY();
+        double leftYStick = oi.getJoystick().getY();
 
-    	double leftMotorOutput = RobotMap.frontLeft.getOutputVoltage() / RobotMap.frontLeft.getBusVoltage();
-    	double rightMotorOutput = RobotMap.frontRight.getOutputVoltage() / RobotMap.frontRight.getBusVoltage();
+        double leftMotorOutput = RobotMap.frontLeft.getOutputVoltage() / RobotMap.frontLeft.getBusVoltage();
+        double rightMotorOutput = RobotMap.frontRight.getOutputVoltage() / RobotMap.frontRight.getBusVoltage();
 
-        System.out.print("Left Out: " + leftMotorOutput + ", Left Speed: " + RobotMap.frontLeft.getSpeed() +
-                " | " + "Right Out: " + rightMotorOutput + ", Right Speed: " + RobotMap.frontRight.getSpeed());
+        sb.append("Left Out: ").append(leftMotorOutput).append(", Left Speed: ").
+                append(RobotMap.frontLeft.getSpeed()).append(" | ").append("Right Out: ").
+                append(rightMotorOutput).append(", Right Speed: ").append(RobotMap.frontRight.getSpeed());
 
         if (oi.getJoystick().getRawButton(1))
         {
@@ -115,8 +121,11 @@ public class Robot extends IterativeRobot
             RobotMap.frontLeft.set(targetSpeed);
             RobotMap.frontRight.set(targetSpeed);
 
-            System.out.print("Left Err: " + RobotMap.frontLeft.getError() + ", " + "Left Tar: " + targetSpeed +
-                    " | " + "Right Err: " + RobotMap.frontRight.getError() + "Right Tar: " + targetSpeed);
+            sb.append("SPMD");
+
+            sb.append("Left Err: ").append(RobotMap.frontLeft.getError()).append(", ").append("Left Tar: ").
+                    append(targetSpeed).append(" | ").append("Right Err: ").append(RobotMap.frontRight.getError()).
+                    append(", Right Tar: ").append(targetSpeed);
 
         }
 
@@ -124,12 +133,18 @@ public class Robot extends IterativeRobot
         {
             RobotMap.frontLeft.changeControlMode(CANTalon.TalonControlMode.PercentVbus);
             RobotMap.frontRight.changeControlMode(CANTalon.TalonControlMode.PercentVbus);
+
+            sb.append("PERC");
+
             RobotMap.frontLeft.set(leftYStick);
             RobotMap.frontRight.set(leftYStick);
         }
 
-        System.out.println();
-        /* DEBUG ENCODER ENDS HERE */
+        if (i++ >= 10)
+        {
+            System.out.println(sb.toString());
+            i = 0;
+        }
     }
 
     @Override

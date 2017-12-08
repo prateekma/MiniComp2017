@@ -32,23 +32,23 @@ public class DTSubsystem extends Subsystem
 
             master.configEncoderCodesPerRev(360);
 
-            master.configNominalOutputVoltage(0.0F, -0.0F);
+            master.configNominalOutputVoltage(-0.0F, 0.0F);
             master.configPeakOutputVoltage(-12F, 12F);
         }
 
         frontLeft.reverseSensor(false);
-        frontLeft.setPID(DT_P_ERRO, 0, 0, DT_F_GAIN, 0, 0, 0);
+        frontLeft.setPID(DT_P_ERROR, 0, 0, DT_F_GAIN, 0, 0, 0);
 
         rearLeft.changeControlMode(CANTalon.TalonControlMode.Follower);
         rearLeft.set(frontLeft.getDeviceID());
 
         frontRight.reverseSensor(true);
-        frontRight.setPID(DT_P_ERRO, 0, 0, DT_F_GAIN, 0, 0, 0);
+        frontRight.setPID(DT_P_ERROR, 0, 0, DT_F_GAIN, 0, 0, 0);
 
         rearRight.changeControlMode(CANTalon.TalonControlMode.Follower);
         rearRight.set(frontRight.getDeviceID());
 
-        gyro = new AHRS(SPI.Port.kMXP);
+        navX = new AHRS(SPI.Port.kMXP);
     }
 
     @Override
@@ -141,6 +141,41 @@ public class DTSubsystem extends Subsystem
 
         frontLeft.set(leftMotorSpeed);
         frontRight.set(rightMotorSpeed);
+    }
+
+    public void falconDirectDrive(double rawLeft, double rawRight)
+    {
+        double left, right;
+
+        if (rawLeft > MAX_RPM)
+        {
+            left = MAX_RPM;
+        }
+        else if (rawLeft < -MAX_RPM)
+        {
+            left = -MAX_RPM;
+        }
+        else
+        {
+            left = rawLeft;
+        }
+
+        if (rawRight > MAX_RPM)
+        {
+            right = MAX_RPM;
+        }
+        else if (rawRight < -MAX_RPM)
+        {
+            right = -MAX_RPM;
+        }
+        else
+        {
+            right = rawRight;
+        }
+
+        frontLeft.set(left);
+        frontRight.set(right);
+
     }
 
     public void stop()

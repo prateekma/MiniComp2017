@@ -39,8 +39,8 @@ public class ATTSubsystem extends PIDSubsystem
 		debugConsole(0);
 
 		// Reset and register "zero" pitch
-		gyro.reset();
-		horizontalPitch = gyro.getPitch();
+		navX.reset();
+		horizontalPitch = navX.getPitch();
 
 		// Set stage
 		current = Stage.STRAIGHT_DRIVE;
@@ -108,7 +108,7 @@ public class ATTSubsystem extends PIDSubsystem
 	@Override
 	protected double returnPIDInput()
 	{
-		return gyro.getPitch();
+		return navX.getPitch();
 	}
 
 	@Override

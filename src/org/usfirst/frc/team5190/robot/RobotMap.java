@@ -27,16 +27,15 @@ public class RobotMap
 
     public static final int MAX_RPM = 2800;
     public static final double DT_F_GAIN = calculateFGain(calculateVelocity(MAX_RPM, 1440.0));
-    public static final double DT_P_ERRO = calculatePGain(.1, 0);
+    public static final double DT_P_ERROR = 0; //calculatePGain(.1, error)
 
 
+    public static AHRS navX;
 
-    public static AHRS gyro;
-
-    public static CANTalon frontLeft    = new CANTalon(FRONT_LEFT);
-    public static CANTalon frontRight   = new CANTalon(FRONT_RIGHT);
-    public static CANTalon rearLeft     = new CANTalon(REAR_LEFT);
-    public static CANTalon rearRight    = new CANTalon(REAR_RIGHT);
+    public static CANTalon frontLeft = new CANTalon(FRONT_LEFT);
+    public static CANTalon frontRight = new CANTalon(FRONT_RIGHT);
+    public static CANTalon rearLeft = new CANTalon(REAR_LEFT);
+    public static CANTalon rearRight = new CANTalon(REAR_RIGHT);
 
 
     public static double calculateVelocity(double rotationsPerMin, double nativeUnitsPerRevolution)
