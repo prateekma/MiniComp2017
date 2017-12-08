@@ -185,7 +185,7 @@ public class DTSubsystem extends Subsystem
 
     public void reset()
     {
-        falconDirectDrive();0, 0);
+        falconDirectDrive(0, 0);
         System.out.println("DTSubsystem Reset.");
     }
 }
