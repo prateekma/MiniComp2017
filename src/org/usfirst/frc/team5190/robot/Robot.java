@@ -5,7 +5,6 @@ package org.usfirst.frc.team5190.robot;
   Team 3rd Pick
  */
 
-import com.ctre.CANTalon;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -29,9 +28,6 @@ public class Robot extends IterativeRobot
     private STTCommand sttCommand;
     private ETTCommand ettCommand;
 
-    // Debug REMOVE LATER
-    private int i = 0;
-    private StringBuilder sb = new StringBuilder();
 
     @Override
     public void robotInit()
@@ -90,61 +86,12 @@ public class Robot extends IterativeRobot
 
         // End Autonomous PID
         ettCommand.start();
-
-        for (CANTalon master : driveTrain.masters)
-        {
-            master.changeControlMode(CANTalon.TalonControlMode.PercentVbus);
-        }
     }
 
     @Override
     public void teleopPeriodic()
     {
         Scheduler.getInstance().run();
-
-    	/* DEBUG ENCODER BEGINS HERE */
-        double leftYStick = oi.getJoystick().getY();
-
-        double leftMotorOutput = RobotMap.frontLeft.getOutputVoltage() / RobotMap.frontLeft.getBusVoltage();
-        double rightMotorOutput = RobotMap.frontRight.getOutputVoltage() / RobotMap.frontRight.getBusVoltage();
-
-        sb.append("Left Out: ").append(leftMotorOutput).append(", Left Speed: ").
-                append(RobotMap.frontLeft.getSpeed()).append(" | ").append("Right Out: ").
-                append(rightMotorOutput).append(", Right Speed: ").append(RobotMap.frontRight.getSpeed());
-
-        if (oi.getJoystick().getRawButton(1))
-        {
-            double targetSpeed = leftYStick * 1500.0;
-            RobotMap.frontLeft.changeControlMode(CANTalon.TalonControlMode.Speed);
-            RobotMap.frontRight.changeControlMode(CANTalon.TalonControlMode.Speed);
-
-            RobotMap.frontLeft.set(targetSpeed);
-            RobotMap.frontRight.set(targetSpeed);
-
-            sb.append("SPMD");
-
-            sb.append("Left Err: ").append(RobotMap.frontLeft.getError()).append(", ").append("Left Tar: ").
-                    append(targetSpeed).append(" | ").append("Right Err: ").append(RobotMap.frontRight.getError()).
-                    append(", Right Tar: ").append(targetSpeed);
-
-        }
-
-        else
-        {
-            RobotMap.frontLeft.changeControlMode(CANTalon.TalonControlMode.PercentVbus);
-            RobotMap.frontRight.changeControlMode(CANTalon.TalonControlMode.PercentVbus);
-
-            sb.append("PERC");
-
-            RobotMap.frontLeft.set(leftYStick);
-            RobotMap.frontRight.set(leftYStick);
-        }
-
-        if (i++ >= 10)
-        {
-            System.out.println(sb.toString());
-            i = 0;
-        }
     }
 
     @Override

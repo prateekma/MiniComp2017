@@ -21,7 +21,6 @@ public class STTCommand extends Command
     @Override
     public void initialize()
     {
-        new RSSCommand().start();
         Robot.teeterTotter.start();
     }
 

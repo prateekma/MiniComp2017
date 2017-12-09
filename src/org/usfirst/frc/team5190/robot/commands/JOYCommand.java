@@ -20,7 +20,7 @@ public class JOYCommand extends Command
     @Override
     protected void execute()
     {
-        Robot.driveTrain.drive();
+        Robot.driveTrain.tankDrive();
     }
 
     @Override

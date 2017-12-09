@@ -7,42 +7,38 @@ package org.usfirst.frc.team5190.robot.subsystems;
 
 import com.ctre.CANTalon;
 import com.kauailabs.navx.frc.AHRS;
+import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import org.usfirst.frc.team5190.robot.Robot;
-
-import java.util.ArrayList;
+import org.usfirst.frc.team5190.robot.commands.JOYCommand;
 
 import static org.usfirst.frc.team5190.robot.RobotMap.*;
 
 @SuppressWarnings({"unused", "WeakerAccess"})
 public class DTSubsystem extends Subsystem
 {
-    public ArrayList<CANTalon> masters = new ArrayList<>();
 
     public DTSubsystem()
     {
-        masters.add(frontLeft);
-        masters.add(frontRight);
 
-        for (CANTalon master : masters)
-        {
-            master.changeControlMode(CANTalon.TalonControlMode.Speed);
-            master.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
+        frontLeft.changeControlMode(CANTalon.TalonControlMode.Speed);
+        frontLeft.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
 
-            master.configEncoderCodesPerRev(360);
-
-            master.configNominalOutputVoltage(-0.0F, 0.0F);
-            master.configPeakOutputVoltage(-12F, 12F);
-        }
+        frontLeft.configEncoderCodesPerRev(360);
 
         frontLeft.reverseSensor(false);
         frontLeft.setPID(DT_P_ERROR, 0, 0, DT_F_GAIN, 0, 0, 0);
 
+        frontRight.changeControlMode(CANTalon.TalonControlMode.Speed);
+        frontRight.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
+
+        frontRight.configEncoderCodesPerRev(360);
+
         rearLeft.changeControlMode(CANTalon.TalonControlMode.Follower);
         rearLeft.set(frontLeft.getDeviceID());
 
-        frontRight.reverseSensor(true);
+        frontRight.reverseSensor(false);
         frontRight.setPID(DT_P_ERROR, 0, 0, DT_F_GAIN, 0, 0, 0);
 
         rearRight.changeControlMode(CANTalon.TalonControlMode.Follower);
@@ -54,12 +50,17 @@ public class DTSubsystem extends Subsystem
     @Override
     public void initDefaultCommand()
     {
-//        this.setDefaultCommand(new JOYCommand());
+        this.setDefaultCommand(new JOYCommand());
     }
 
     public void drive()
     {
         falconArcadeDrive(-Robot.oi.getJoystick().getY(), -Robot.oi.getJoystick().getX());
+    }
+
+    public void tankDrive()
+    {
+        falconTankDrive(-Robot.oi.getXbox().getY(GenericHID.Hand.kLeft), Robot.oi.getXbox().getY(GenericHID.Hand.kRight));
     }
 
     public void falconTankDrive(double leftValue, double rightValue)
@@ -140,7 +141,10 @@ public class DTSubsystem extends Subsystem
         rightMotorSpeed *= MAX_RPM;
 
         frontLeft.set(leftMotorSpeed);
-        frontRight.set(rightMotorSpeed);
+        frontRight.set(-rightMotorSpeed);
+
+        System.out.println(leftMotorSpeed);
+
     }
 
     public void falconDirectDrive(double rawLeft, double rawRight)

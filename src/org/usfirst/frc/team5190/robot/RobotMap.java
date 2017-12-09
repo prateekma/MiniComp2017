@@ -19,15 +19,15 @@ public class RobotMap
     public static final double I_STRAIGHT = 0.2;
     public static final double D_STRAIGHT = 0;
 
-    public static final double P_BALANCE = 0.033;
+    public static final double P_BALANCE = 0.21;
     public static final double I_BALANCE = 0;
-    public static final double D_BALANCE = 0.08; // 0.3 when worked
+    public static final double D_BALANCE = 0.18; // 0.3 when worked
 
     public static final double MIN_PITCH = 5;
 
-    public static final int MAX_RPM = 2800;
+    public static final int MAX_RPM = 1170;
     public static final double DT_F_GAIN = calculateFGain(calculateVelocity(MAX_RPM, 1440.0));
-    public static final double DT_P_ERROR = 0; //calculatePGain(.1, error)
+    public static final double DT_P_ERROR = calculatePGain(.1, 527);
 
 
     public static AHRS navX;
@@ -40,7 +40,7 @@ public class RobotMap
 
     public static double calculateVelocity(double rotationsPerMin, double nativeUnitsPerRevolution)
     {
-        return rotationsPerMin * (1 / 60) * (1 / 10) * nativeUnitsPerRevolution;
+        return ((rotationsPerMin / 600) * nativeUnitsPerRevolution);
     }
 
     public static double calculateFGain(double velocity)

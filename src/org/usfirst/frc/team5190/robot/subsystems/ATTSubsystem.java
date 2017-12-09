@@ -56,7 +56,7 @@ public class ATTSubsystem extends PIDSubsystem
 		this.getPIDController().setPID(P_STRAIGHT, I_STRAIGHT, D_STRAIGHT);
 		this.getPIDController().setSetpoint(MIN_PITCH + horizontalPitch);
 		this.setAbsoluteTolerance(tolerance);
-		this.setOutputRange(-.35, .35);    // .3, .3
+		this.setOutputRange(-.51, .51);    // .3, .3
 	}
 
 	private void switchToBalanceDrive()
@@ -64,7 +64,7 @@ public class ATTSubsystem extends PIDSubsystem
 		// Set stage
 		current = Stage.BALANCE_DRIVE;
 		setPoint = horizontalPitch;
-		tolerance = 0.1;
+		tolerance = 0.5;
 
 		this.getPIDController().reset();
 
@@ -72,7 +72,7 @@ public class ATTSubsystem extends PIDSubsystem
 		this.getPIDController().setPID(P_BALANCE, I_BALANCE, D_BALANCE);
 		this.getPIDController().setSetpoint(setPoint);
 		this.setAbsoluteTolerance(tolerance);
-		this.setOutputRange(-0.035 * MIN_PITCH, 0.035 * MIN_PITCH);    // -.4, .4
+		this.setOutputRange(-.3, 0.3);    // -.4, .4
 
 		this.enable();
 	}

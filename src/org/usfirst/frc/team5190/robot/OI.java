@@ -6,6 +6,7 @@ package org.usfirst.frc.team5190.robot;
  */
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import org.usfirst.frc.team5190.robot.commands.ETTCommand;
 import org.usfirst.frc.team5190.robot.commands.RSSCommand;
@@ -15,6 +16,7 @@ public class OI
 {
     // Joystick Declaration
     private Joystick joy = new Joystick(0);
+    private XboxController xbox = new XboxController(0);
 
     OI()
     {
@@ -32,5 +34,15 @@ public class OI
     public Joystick getJoystick()
     {
         return joy;
+    }
+
+    public XboxController getXbox()
+    {
+        return xbox;
+    }
+
+    public void setXbox(XboxController xbox)
+    {
+        this.xbox = xbox;
     }
 }
